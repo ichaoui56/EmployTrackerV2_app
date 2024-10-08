@@ -40,6 +40,23 @@ public class UserDaoImpl implements IUserDao {
     }
 
     @Override
+    public Employee findEmployeeById(int id) {
+        EntityManager entityManager = JpaConfig.getEntityManagerFactory().createEntityManager();
+        Employee employee = null;
+
+        try {
+            employee = entityManager.find(Employee.class, id);
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            entityManager.close();
+        }
+
+        return employee;
+    }
+
+
+    @Override
     public void insert(User user) {
         EntityManager entityManager = JpaConfig.getEntityManagerFactory().createEntityManager();
         EntityTransaction transaction = null;
@@ -111,4 +128,25 @@ public class UserDaoImpl implements IUserDao {
             entityManager.close();
         }
     }
+
+    @Override
+    public void updateEmployee(Employee employee) {
+        EntityManager entityManager = JpaConfig.getEntityManagerFactory().createEntityManager();
+        EntityTransaction transaction = null;
+
+        try {
+            transaction = entityManager.getTransaction();
+            transaction.begin();
+            entityManager.merge(employee);
+            transaction.commit();
+        } catch (Exception e) {
+            if (transaction != null && transaction.isActive()) {
+                transaction.rollback();
+            }
+            e.printStackTrace();
+        } finally {
+            entityManager.close();
+        }
+    }
+
 }

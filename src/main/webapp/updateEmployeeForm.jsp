@@ -1,3 +1,12 @@
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<html>
+<head>
+    <title>Update Employee</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<h1>Update Employee</h1>
+
 <form action="employee" method="POST">
     <input type="hidden" name="action" value="update">
     <input type="hidden" name="id" value="${employee.id}">
@@ -5,15 +14,6 @@
     Name: <input type="text" name="name" value="${employee.name}" required><br>
     Email: <input type="email" name="email" value="${employee.email}" required><br>
     Password: <input type="password" name="password" value="${employee.password}" required><br>
-
-    Role:
-    <select name="role" required>
-        <option value="" disabled>Select role</option>
-        <option value="ADMIN" ${employee.role == 'ADMIN' ? 'selected' : ''}>Admin</option>
-        <option value="EMPLOYEE" ${employee.role == 'EMPLOYEE' ? 'selected' : ''}>Employee</option>
-        <option value="RECRUITER" ${employee.role == 'RECRUITER' ? 'selected' : ''}>Recruiter</option>
-    </select><br>
-
     Department: <input type="text" name="department" value="${employee.department}" required><br>
     Poste: <input type="text" name="poste" value="${employee.poste}" required><br>
     Salary: <input type="number" name="salary" value="${employee.salary}" required><br>
@@ -25,3 +25,7 @@
 
     <input type="submit" value="Update Employee">
 </form>
+
+<a href="employee?action=employeeList">Cancel</a>
+</body>
+</html>

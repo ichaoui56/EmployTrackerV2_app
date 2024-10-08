@@ -24,6 +24,11 @@ public class UserServiceImpl implements IUserService {
     }
 
     @Override
+    public Employee findEmployeeById(int id) {
+        return userDao.findEmployeeById(id);
+    }
+
+    @Override
     public void insert(User user) {
         userDao.insert(user);
     }
@@ -36,6 +41,11 @@ public class UserServiceImpl implements IUserService {
     @Override
     public void delete(int id){
         userDao.deleteEmployee(id);
+    }
+
+    @Override
+    public void update(Employee employee) {
+        userDao.updateEmployee(employee);
     }
 
 }
