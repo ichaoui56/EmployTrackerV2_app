@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Context>
+
+    <!-- JDBC Data Source Configuration -->
+    <Resource name="jdbc/EmployeeTrackerV2"
+              auth="Container"
+              type="javax.sql.DataSource"
+              maxTotal="20"
+              maxIdle="10"
+              maxWaitMillis="-1"
+              username="postgres"
+              password="123"
+    driverClassName="org.postgresql.Driver"
+    url="jdbc:postgresql://localhost:5432/EmployeeTrackerV2" />
+
+    <Realm className="org.apache.catalina.realm.JAASRealm"
+           appName="EmployeeTrackerV2"
+    userClassNames="org.example.employeetrackerv2.model.entity.User"
+    roleClassNames="org.example.employeetrackerv2.model.enums.Role"
+    debug="99" />
+
+    <Parameter name="jaas.config" value="${catalina.base}/../resources/jaas.config" />
+
+</Context>

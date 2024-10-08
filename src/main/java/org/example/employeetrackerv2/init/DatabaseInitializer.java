@@ -2,8 +2,8 @@ package org.example.employeetrackerv2.init;
 
 import org.example.employeetrackerv2.config.JpaConfig;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.EntityManagerFactory;
 
 public class DatabaseInitializer {
 
