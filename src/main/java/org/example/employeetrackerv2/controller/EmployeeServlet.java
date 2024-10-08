@@ -16,6 +16,7 @@ import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 @WebServlet("/employee")
 public class EmployeeServlet extends HttpServlet {
@@ -37,6 +38,9 @@ public class EmployeeServlet extends HttpServlet {
         switch (action) {
             case "addForm":
                 addForm(req, resp);
+                break;
+            case "employeeList":
+                employeeList(req,resp);
                 break;
             default:
                 resp.sendError(HttpServletResponse.SC_BAD_REQUEST, "Invalid action");
@@ -60,6 +64,12 @@ public class EmployeeServlet extends HttpServlet {
 
     private void addForm(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         req.getRequestDispatcher("addEmployeeForm.jsp").forward(req, resp);
+    }
+
+    private void employeeList(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        List<Employee> employees = userDao.findAllEmployees();
+        req.setAttribute("employees", employees);
+        req.getRequestDispatcher("employeeList.jsp").forward(req, resp);
     }
 
     private void insertEmployee(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
