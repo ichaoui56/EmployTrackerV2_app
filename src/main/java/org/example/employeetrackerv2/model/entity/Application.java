@@ -3,7 +3,7 @@ package org.example.employeetrackerv2.model.entity;
 import org.example.employeetrackerv2.model.enums.Role;
 import org.example.employeetrackerv2.model.enums.Status;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 
 @Entity
 public class Application {
