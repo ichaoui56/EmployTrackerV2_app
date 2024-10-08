@@ -9,4 +9,5 @@ public interface IUserDao {
     User findByEmail(String email);
     void insert(User user);
     List<Employee> findAllEmployees();
+    void deleteEmployee(int employeeId);
 }

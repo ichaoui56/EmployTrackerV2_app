@@ -40,10 +40,8 @@
       <td>${employee.poste}</td>
       <td>${employee.leaveBalance}</td>
       <td>
-        <form method="post">
-          <input type="hidden" name="id" value="${employee.id}">
-          <button type="submit">Delete</button>
-        </form>
+        <a href="employee?action=delete&id=${employee.id}"
+           onclick="return confirm('Are you sure you want to delete this employee?');">Delete</a>
       </td>
     </tr>
   </c:forEach>
