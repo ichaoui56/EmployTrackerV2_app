@@ -40,6 +40,7 @@
       <td>${employee.poste}</td>
       <td>${employee.leaveBalance}</td>
       <td>
+        <a href="employee?action=updateForm&id=${employee.id}">Update</a> |
         <a href="employee?action=delete&id=${employee.id}"
            onclick="return confirm('Are you sure you want to delete this employee?');">Delete</a>
       </td>

@@ -45,6 +45,9 @@ public class EmployeeServlet extends HttpServlet {
             case "delete":
                 deleteEmployee(req, resp);
                 break;
+            case "updateForm":
+                showUpdateForm(req, resp);
+                break;
             default:
                 resp.sendError(HttpServletResponse.SC_BAD_REQUEST, "Invalid action");
                 break;
@@ -58,6 +61,9 @@ public class EmployeeServlet extends HttpServlet {
         switch (action) {
             case "insert":
                 insertEmployee(req, resp);
+                break;
+            case "update":
+                updateEmployee(req, resp);
                 break;
             default:
                 resp.sendError(HttpServletResponse.SC_BAD_REQUEST, "Invalid action");
@@ -73,6 +79,13 @@ public class EmployeeServlet extends HttpServlet {
         List<Employee> employees = userService.getAllEmployees();
         req.setAttribute("employees", employees);
         req.getRequestDispatcher("employeeList.jsp").forward(req, resp);
+    }
+
+    private void showUpdateForm(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        int employeeId = Integer.parseInt(req.getParameter("id"));
+        Employee employee = userService.findEmployeeById(employeeId);
+        req.setAttribute("employee", employee);
+        req.getRequestDispatcher("updateEmployeeForm.jsp").forward(req, resp);
     }
 
     private void insertEmployee(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -115,6 +128,47 @@ public class EmployeeServlet extends HttpServlet {
         } catch (NumberFormatException e) {
             e.printStackTrace();
             resp.sendError(HttpServletResponse.SC_BAD_REQUEST, "Invalid employee ID");
+        }
+    }
+
+    private void updateEmployee(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        try {
+            int id = Integer.parseInt(req.getParameter("id"));
+            String name = req.getParameter("name");
+            String email = req.getParameter("email");
+            String password = req.getParameter("password");
+
+            String socialNumber = req.getParameter("socialNumber");
+            String department = req.getParameter("department");
+            String poste = req.getParameter("poste");
+            long salary = Long.parseLong(req.getParameter("salary"));
+            int childNumber = Integer.parseInt(req.getParameter("childNumber"));
+            int leaveBalance = Integer.parseInt(req.getParameter("leaveBalance"));
+            Date birthDate = new SimpleDateFormat("yyyy-MM-dd").parse(req.getParameter("birthDate"));
+            Date startDate = new SimpleDateFormat("yyyy-MM-dd").parse(req.getParameter("startDate"));
+
+            Employee employee = userService.findEmployeeById(id);
+            employee.setName(name);
+            employee.setEmail(email);
+            employee.setPassword(password);
+            employee.setSocialNumber(socialNumber);
+            employee.setDepartment(department);
+            employee.setPoste(poste);
+            employee.setSalary(salary);
+            employee.setChildNumber(childNumber);
+            employee.setLeaveBalance(leaveBalance);
+            employee.setBirthDate(birthDate);
+            employee.setStartDate(startDate);
+
+            userService.update(employee);
+
+            resp.sendRedirect("employee?action=employeeList");
+        } catch (ParseException e) {
+            e.printStackTrace();
+            resp.sendError(HttpServletResponse.SC_BAD_REQUEST, "Invalid date format");
+        } catch (IllegalArgumentException e) {
+            e.printStackTrace();
+            resp.sendError(HttpServletResponse.SC_BAD_REQUEST, "Invalid role");
         }
     }
 }
