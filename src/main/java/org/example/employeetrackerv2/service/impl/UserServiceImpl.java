@@ -1,8 +1,11 @@
 package org.example.employeetrackerv2.service.impl;
 
 import org.example.employeetrackerv2.dao.IUserDao;
+import org.example.employeetrackerv2.model.entity.Employee;
 import org.example.employeetrackerv2.model.entity.User;
 import org.example.employeetrackerv2.service.IUserService;
+
+import java.util.List;
 
 public class UserServiceImpl implements IUserService {
     private final IUserDao userDao;
@@ -23,6 +26,16 @@ public class UserServiceImpl implements IUserService {
     @Override
     public void insert(User user) {
         userDao.insert(user);
+    }
+
+    @Override
+    public List<Employee> getAllEmployees(){
+        return userDao.findAllEmployees();
+    }
+
+    @Override
+    public void delete(int id){
+        userDao.deleteEmployee(id);
     }
 
 }

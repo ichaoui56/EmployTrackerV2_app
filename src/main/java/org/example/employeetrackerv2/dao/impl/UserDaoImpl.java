@@ -87,4 +87,28 @@ public class UserDaoImpl implements IUserDao {
         return employees;
     }
 
+    @Override
+    public void deleteEmployee(int employeeId) {
+        EntityManager entityManager = JpaConfig.getEntityManagerFactory().createEntityManager();
+        EntityTransaction transaction = null;
+
+        try {
+            transaction = entityManager.getTransaction();
+            transaction.begin();
+
+            Employee employee = entityManager.find(Employee.class, employeeId);
+            if (employee != null) {
+                entityManager.remove(employee);
+            }
+
+            transaction.commit();
+        } catch (Exception e) {
+            if (transaction != null && transaction.isActive()) {
+                transaction.rollback();
+            }
+            e.printStackTrace();
+        } finally {
+            entityManager.close();
+        }
+    }
 }

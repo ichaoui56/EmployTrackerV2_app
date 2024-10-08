@@ -42,6 +42,9 @@ public class EmployeeServlet extends HttpServlet {
             case "employeeList":
                 employeeList(req,resp);
                 break;
+            case "delete":
+                deleteEmployee(req, resp);
+                break;
             default:
                 resp.sendError(HttpServletResponse.SC_BAD_REQUEST, "Invalid action");
                 break;
@@ -67,7 +70,7 @@ public class EmployeeServlet extends HttpServlet {
     }
 
     private void employeeList(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        List<Employee> employees = userDao.findAllEmployees();
+        List<Employee> employees = userService.getAllEmployees();
         req.setAttribute("employees", employees);
         req.getRequestDispatcher("employeeList.jsp").forward(req, resp);
     }
@@ -100,6 +103,18 @@ public class EmployeeServlet extends HttpServlet {
         } catch (NumberFormatException e) {
             e.printStackTrace();
             resp.sendError(HttpServletResponse.SC_BAD_REQUEST, "Invalid number format");
+        }
+    }
+
+    private void deleteEmployee(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        try {
+            int employeeId = Integer.parseInt(req.getParameter("id"));
+            userService.delete(employeeId);
+
+            resp.sendRedirect("employee?action=employeeList");
+        } catch (NumberFormatException e) {
+            e.printStackTrace();
+            resp.sendError(HttpServletResponse.SC_BAD_REQUEST, "Invalid employee ID");
         }
     }
 }
