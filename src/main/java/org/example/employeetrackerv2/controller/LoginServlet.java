@@ -1,7 +1,5 @@
 package org.example.employeetrackerv2.controller;
 
-import jakarta.persistence.EntityManager;
-import org.example.employeetrackerv2.config.JpaConfig;
 import org.example.employeetrackerv2.dao.IUserDao;
 import org.example.employeetrackerv2.dao.impl.UserDaoImpl;
 import org.example.employeetrackerv2.model.entity.User;
@@ -15,7 +13,7 @@ import org.example.employeetrackerv2.service.impl.UserServiceImpl;
 import java.io.IOException;
 
 @WebServlet("/login")
-public class LoginController extends HttpServlet {
+public class LoginServlet extends HttpServlet {
     private IUserDao userDao;
     private IUserService userService;
 
@@ -24,6 +22,12 @@ public class LoginController extends HttpServlet {
         userDao = new UserDaoImpl();
         userService = new UserServiceImpl(userDao);
     }
+
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        request.getRequestDispatcher("login.jsp").forward(request, response);
+    }
+
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String email = request.getParameter("email");

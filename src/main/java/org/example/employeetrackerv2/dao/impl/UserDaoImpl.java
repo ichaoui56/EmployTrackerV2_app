@@ -6,7 +6,6 @@ import org.example.employeetrackerv2.dao.IUserDao;
 import org.example.employeetrackerv2.model.entity.User;
 
 import jakarta.persistence.EntityManager;
-import jakarta.persistence.TypedQuery;
 
 public class UserDaoImpl implements IUserDao {
 
@@ -35,5 +34,27 @@ public class UserDaoImpl implements IUserDao {
         }
 
         return user;
+    }
+
+    @Override
+    public void insert(User user) {
+        EntityManager entityManager = JpaConfig.getEntityManagerFactory().createEntityManager();
+        EntityTransaction transaction = null;
+
+        try {
+            transaction = entityManager.getTransaction();
+            transaction.begin();
+
+            entityManager.persist(user);
+
+            transaction.commit();
+        } catch (Exception e) {
+            if (transaction != null && transaction.isActive()) {
+                transaction.rollback();
+            }
+            e.printStackTrace();
+        } finally {
+            entityManager.close();
+        }
     }
 }
