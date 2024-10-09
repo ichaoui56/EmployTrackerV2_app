@@ -6,12 +6,17 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.example.employeetrackerv2.dao.IEmployeeDao;
+import org.example.employeetrackerv2.dao.IRecruiterDao;
 import org.example.employeetrackerv2.dao.impl.EmployeeDaoImpl;
+import org.example.employeetrackerv2.dao.impl.RecruiterDaoImpl;
 import org.example.employeetrackerv2.model.entity.Employee;
 import org.example.employeetrackerv2.model.entity.EmployeeHistory;
+import org.example.employeetrackerv2.model.entity.Recruiter;
 import org.example.employeetrackerv2.model.enums.Role;
 import org.example.employeetrackerv2.service.IEmployeeService;
+import org.example.employeetrackerv2.service.IRecruiterService;
 import org.example.employeetrackerv2.service.impl.EmployeeServiceImpl;
+import org.example.employeetrackerv2.service.impl.RecruiterServiceImpl;
 
 import java.io.IOException;
 import java.text.ParseException;
@@ -24,12 +29,16 @@ public class EmployeeServlet extends HttpServlet {
 
     private IEmployeeDao employeeDao;
     private IEmployeeService employeeService;
+    private IRecruiterDao recruiterDao;
+    private IRecruiterService recruiterService;
 
     @Override
     public void init() throws ServletException {
         super.init();
         employeeDao = new EmployeeDaoImpl();
         employeeService = new EmployeeServiceImpl(employeeDao);
+        recruiterDao = new RecruiterDaoImpl();
+        recruiterService = new RecruiterServiceImpl(recruiterDao);
     }
 
     @Override
@@ -61,7 +70,7 @@ public class EmployeeServlet extends HttpServlet {
 
         switch (action) {
             case "insert":
-                insertEmployee(req, resp);
+                insertUser(req, resp);
                 break;
             case "update":
                 updateEmployee(req, resp);
@@ -89,7 +98,7 @@ public class EmployeeServlet extends HttpServlet {
         req.getRequestDispatcher("updateEmployeeForm.jsp").forward(req, resp);
     }
 
-    private void insertEmployee(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    private void insertUser(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         try {
             String name = req.getParameter("name");
             String email = req.getParameter("email");
@@ -104,14 +113,21 @@ public class EmployeeServlet extends HttpServlet {
             Date birthDate = new SimpleDateFormat("yyyy-MM-dd").parse(req.getParameter("birthDate"));
             Date startDate = new SimpleDateFormat("yyyy-MM-dd").parse(req.getParameter("startDate"));
 
-            Employee employee = new Employee(
-                    name, email, password, role, birthDate, socialNumber, startDate, salary, childNumber, department, poste, leaveBalance
-            );
-            employeeService.insert(employee);
+           if (role == Role.EMPLOYEE){
+               Employee employee = new Employee(
+                       name, email, password, role, birthDate, socialNumber, startDate, salary, childNumber, department, poste, leaveBalance
+               );
+               employeeService.insert(employee);
 
-            String modificationDetails = "Added new employee with name: " + employee.getName();
-            EmployeeHistory history = new EmployeeHistory(employee, modificationDetails, "admin");
-            employeeService.addEmployeeHistory(history);
+               String modificationDetails = "Added new employee with name: " + employee.getName();
+               EmployeeHistory history = new EmployeeHistory(employee, modificationDetails, "admin");
+               employeeService.addEmployeeHistory(history);
+           } else if (role == Role.RECRUITER){
+               Recruiter recruiter = new Recruiter(
+                       name, email, password, role
+               );
+               recruiterService.insertUser(recruiter);
+           }
 
             resp.sendRedirect("employee?action=employeeList");
         } catch (ParseException e) {
