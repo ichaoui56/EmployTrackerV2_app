@@ -8,123 +8,41 @@ public class EmployeeHistory {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id", nullable = false)
-    private int id;
-
-    @Column(name = "birth_date", nullable = false)
-    @Temporal(TemporalType.DATE)
-    private Date birthDate;
-
-    @Column(name = "social_number", nullable = false, length = 50)
-    private String socialNumber;
-
-    @Column(name = "start_date", nullable = false)
-    @Temporal(TemporalType.DATE)
-    private Date startDate;
-
-    @Column(name = "salary", nullable = false)
-    private long salary;
-
-    @Column(name = "child_number", nullable = false)
-    private int childNumber;
-
-    @Column(name = "department", nullable = false, length = 100)
-    private String department;
-
-    @Column(name = "poste", nullable = false, length = 100)
-    private String poste;
-
-    @Column(name = "leave_balance", nullable = false)
-    private int leaveBalance;
+    private Long id;
 
     @ManyToOne
     @JoinColumn(name = "employee_id", nullable = false)
     private Employee employee;
 
+    @Column(name = "modified_at", nullable = false)
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date modifiedAt;
+
+    @Column(name = "modification_details", nullable = false, length = 1000)
+    private String modificationDetails;
+
+    @Column(name = "modified_by", nullable = false, length = 100)
+    private String modifiedBy;
+
+    // Default constructor
     public EmployeeHistory() {}
 
-    public EmployeeHistory(Date birthDate, String socialNumber, Date startDate, long salary, int childNumber, String department, String poste, int leaveBalance, Employee employee) {
-        this.birthDate = birthDate;
-        this.socialNumber = socialNumber;
-        this.startDate = startDate;
-        this.salary = salary;
-        this.childNumber = childNumber;
-        this.department = department;
-        this.poste = poste;
-        this.leaveBalance = leaveBalance;
+    // Full constructor with all fields
+    public EmployeeHistory(Employee employee, String modificationDetails, String modifiedBy) {
         this.employee = employee;
+        this.modifiedAt = new Date(); // Automatically sets the current timestamp when the history is created
+        this.modificationDetails = modificationDetails;
+        this.modifiedBy = modifiedBy;
     }
 
-    public int getId() {
+    // Getters and Setters
+
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
-    }
-
-    public Date getBirthDate() {
-        return birthDate;
-    }
-
-    public void setBirthDate(Date birthDate) {
-        this.birthDate = birthDate;
-    }
-
-    public String getSocialNumber() {
-        return socialNumber;
-    }
-
-    public void setSocialNumber(String socialNumber) {
-        this.socialNumber = socialNumber;
-    }
-
-    public Date getStartDate() {
-        return startDate;
-    }
-
-    public void setStartDate(Date startDate) {
-        this.startDate = startDate;
-    }
-
-    public long getSalary() {
-        return salary;
-    }
-
-    public void setSalary(long salary) {
-        this.salary = salary;
-    }
-
-    public int getChildNumber() {
-        return childNumber;
-    }
-
-    public void setChildNumber(int childNumber) {
-        this.childNumber = childNumber;
-    }
-
-    public String getDepartment() {
-        return department;
-    }
-
-    public void setDepartment(String department) {
-        this.department = department;
-    }
-
-    public String getPoste() {
-        return poste;
-    }
-
-    public void setPoste(String poste) {
-        this.poste = poste;
-    }
-
-    public int getLeaveBalance() {
-        return leaveBalance;
-    }
-
-    public void setLeaveBalance(int leaveBalance) {
-        this.leaveBalance = leaveBalance;
     }
 
     public Employee getEmployee() {
@@ -133,5 +51,29 @@ public class EmployeeHistory {
 
     public void setEmployee(Employee employee) {
         this.employee = employee;
+    }
+
+    public Date getModifiedAt() {
+        return modifiedAt;
+    }
+
+    public void setModifiedAt(Date modifiedAt) {
+        this.modifiedAt = modifiedAt;
+    }
+
+    public String getModificationDetails() {
+        return modificationDetails;
+    }
+
+    public void setModificationDetails(String modificationDetails) {
+        this.modificationDetails = modificationDetails;
+    }
+
+    public String getModifiedBy() {
+        return modifiedBy;
+    }
+
+    public void setModifiedBy(String modifiedBy) {
+        this.modifiedBy = modifiedBy;
     }
 }

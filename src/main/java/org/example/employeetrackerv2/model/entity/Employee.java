@@ -35,7 +35,7 @@ public class Employee extends User {
     @Column(name = "leave_balance", nullable = false)
     private int leaveBalance;
 
-    @OneToMany(mappedBy = "employee")
+    @OneToMany(mappedBy = "employee", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<EmployeeHistory> employeeHistoryList;
 
     @OneToMany(mappedBy = "employee")
