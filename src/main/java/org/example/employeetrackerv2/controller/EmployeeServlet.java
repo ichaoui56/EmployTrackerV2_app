@@ -5,12 +5,13 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import org.example.employeetrackerv2.dao.IUserDao;
-import org.example.employeetrackerv2.dao.impl.UserDaoImpl;
+import org.example.employeetrackerv2.dao.IEmployeeDao;
+import org.example.employeetrackerv2.dao.impl.EmployeeDaoImpl;
 import org.example.employeetrackerv2.model.entity.Employee;
+import org.example.employeetrackerv2.model.entity.EmployeeHistory;
 import org.example.employeetrackerv2.model.enums.Role;
-import org.example.employeetrackerv2.service.IUserService;
-import org.example.employeetrackerv2.service.impl.UserServiceImpl;
+import org.example.employeetrackerv2.service.IEmployeeService;
+import org.example.employeetrackerv2.service.impl.EmployeeServiceImpl;
 
 import java.io.IOException;
 import java.text.ParseException;
@@ -21,14 +22,14 @@ import java.util.List;
 @WebServlet("/employee")
 public class EmployeeServlet extends HttpServlet {
 
-    private IUserDao userDao;
-    private IUserService userService;
+    private IEmployeeDao employeeDao;
+    private IEmployeeService employeeService;
 
     @Override
     public void init() throws ServletException {
         super.init();
-        userDao = new UserDaoImpl();
-        userService = new UserServiceImpl(userDao);
+        employeeDao = new EmployeeDaoImpl();
+        employeeService = new EmployeeServiceImpl(employeeDao);
     }
 
     @Override
@@ -40,7 +41,7 @@ public class EmployeeServlet extends HttpServlet {
                 addForm(req, resp);
                 break;
             case "employeeList":
-                employeeList(req,resp);
+                employeeList(req, resp);
                 break;
             case "delete":
                 deleteEmployee(req, resp);
@@ -49,7 +50,7 @@ public class EmployeeServlet extends HttpServlet {
                 showUpdateForm(req, resp);
                 break;
             default:
-                resp.sendError(HttpServletResponse.SC_BAD_REQUEST, "Invalid action");
+                employeeList(req, resp);
                 break;
         }
     }
@@ -76,14 +77,14 @@ public class EmployeeServlet extends HttpServlet {
     }
 
     private void employeeList(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        List<Employee> employees = userService.getAllEmployees();
+        List<Employee> employees = employeeService.getAllEmployees();
         req.setAttribute("employees", employees);
         req.getRequestDispatcher("employeeList.jsp").forward(req, resp);
     }
 
     private void showUpdateForm(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         int employeeId = Integer.parseInt(req.getParameter("id"));
-        Employee employee = userService.findEmployeeById(employeeId);
+        Employee employee = employeeService.findEmployeeById(employeeId);
         req.setAttribute("employee", employee);
         req.getRequestDispatcher("updateEmployeeForm.jsp").forward(req, resp);
     }
@@ -106,10 +107,13 @@ public class EmployeeServlet extends HttpServlet {
             Employee employee = new Employee(
                     name, email, password, role, birthDate, socialNumber, startDate, salary, childNumber, department, poste, leaveBalance
             );
+            employeeService.insert(employee);
 
-            userService.insert(employee);
+            String modificationDetails = "Added new employee with name: " + employee.getName();
+            EmployeeHistory history = new EmployeeHistory(employee, modificationDetails, "admin");
+            employeeService.addEmployeeHistory(history);
 
-            resp.sendRedirect("employeeList.jsp");
+            resp.sendRedirect("employee?action=employeeList");
         } catch (ParseException e) {
             e.printStackTrace();
             resp.sendError(HttpServletResponse.SC_BAD_REQUEST, "Invalid date format");
@@ -122,7 +126,7 @@ public class EmployeeServlet extends HttpServlet {
     private void deleteEmployee(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         try {
             int employeeId = Integer.parseInt(req.getParameter("id"));
-            userService.delete(employeeId);
+            employeeService.delete(employeeId);
 
             resp.sendRedirect("employee?action=employeeList");
         } catch (NumberFormatException e) {
@@ -137,7 +141,6 @@ public class EmployeeServlet extends HttpServlet {
             String name = req.getParameter("name");
             String email = req.getParameter("email");
             String password = req.getParameter("password");
-
             String socialNumber = req.getParameter("socialNumber");
             String department = req.getParameter("department");
             String poste = req.getParameter("poste");
@@ -147,7 +150,7 @@ public class EmployeeServlet extends HttpServlet {
             Date birthDate = new SimpleDateFormat("yyyy-MM-dd").parse(req.getParameter("birthDate"));
             Date startDate = new SimpleDateFormat("yyyy-MM-dd").parse(req.getParameter("startDate"));
 
-            Employee employee = userService.findEmployeeById(id);
+            Employee employee = employeeService.findEmployeeById(id);
             employee.setName(name);
             employee.setEmail(email);
             employee.setPassword(password);
@@ -160,15 +163,18 @@ public class EmployeeServlet extends HttpServlet {
             employee.setBirthDate(birthDate);
             employee.setStartDate(startDate);
 
-            userService.update(employee);
+            employeeService.update(employee);
+            String modificationDetails = "Updated employee with name: " + employee.getName();
+            EmployeeHistory history = new EmployeeHistory(employee, modificationDetails, "admin");
+            employeeService.addEmployeeHistory(history);
 
             resp.sendRedirect("employee?action=employeeList");
         } catch (ParseException e) {
             e.printStackTrace();
             resp.sendError(HttpServletResponse.SC_BAD_REQUEST, "Invalid date format");
-        } catch (IllegalArgumentException e) {
+        } catch (NumberFormatException e) {
             e.printStackTrace();
-            resp.sendError(HttpServletResponse.SC_BAD_REQUEST, "Invalid role");
+            resp.sendError(HttpServletResponse.SC_BAD_REQUEST, "Invalid number format");
         }
     }
 }
