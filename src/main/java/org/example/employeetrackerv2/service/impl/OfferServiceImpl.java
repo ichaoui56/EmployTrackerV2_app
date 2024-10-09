@@ -15,4 +15,9 @@ public class OfferServiceImpl implements IOfferService {
     public void addOffer(Offer offer){
         offerDao.addOffer(offer);
     }
+
+    @Override
+    public void updateOfferStatus() {
+        offerDao.updateOfferStatus();
+    }
 }

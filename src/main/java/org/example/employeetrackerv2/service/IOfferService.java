@@ -4,4 +4,5 @@ import org.example.employeetrackerv2.model.entity.Offer;
 
 public interface IOfferService {
     void addOffer(Offer offer);
+    void updateOfferStatus();
 }

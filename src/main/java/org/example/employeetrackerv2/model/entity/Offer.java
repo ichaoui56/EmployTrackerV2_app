@@ -1,6 +1,8 @@
 package org.example.employeetrackerv2.model.entity;
 
 import jakarta.persistence.*;
+import org.example.employeetrackerv2.model.enums.OfferStatus;
+
 import java.util.Date;
 import java.util.List;
 
@@ -37,6 +39,10 @@ public class Offer {
     @Temporal(TemporalType.DATE)
     private Date datePosted;
 
+    @Enumerated(EnumType.STRING)
+    @Column(name = "status", nullable = false)
+    private OfferStatus status;
+
     @ManyToOne
     @JoinColumn(name = "recruiter_id", nullable = false)
     private Recruiter recruiter;
@@ -56,6 +62,7 @@ public class Offer {
         this.salary = salary;
         this.datePosted = datePosted;
         this.recruiter = recruiter;
+        this.status = OfferStatus.ACTIVE;
     }
 
     public int getId() {
@@ -104,6 +111,14 @@ public class Offer {
 
     public void setExperience(String experience) {
         this.experience = experience;
+    }
+
+    public OfferStatus getStatus() {
+        return status;
+    }
+
+    public void setStatus(OfferStatus status) {
+        this.status = status;
     }
 
     public String getQualifications() {
