@@ -5,9 +5,13 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import org.example.employeetrackerv2.dao.IOfferDao;
 import org.example.employeetrackerv2.dao.impl.OfferDaoImpl;
 import org.example.employeetrackerv2.model.entity.Offer;
+import org.example.employeetrackerv2.model.entity.Recruiter;
+import org.example.employeetrackerv2.model.entity.User;
+import org.example.employeetrackerv2.model.enums.Role;
 import org.example.employeetrackerv2.service.IOfferService;
 import org.example.employeetrackerv2.service.impl.OfferServiceImpl;
 
@@ -32,7 +36,7 @@ public class OfferServlet extends HttpServlet {
         String action = request.getParameter("action");
 
         switch (action){
-            case "addOffer":
+            case "addOfferForm":
                 showOfferForm(request, response);
                 break;
             default:
@@ -49,7 +53,7 @@ public class OfferServlet extends HttpServlet {
                 addOffer(request, response);
                 break;
             default:
-                response.sendError(HttpServletResponse.SC_NOT_FOUND); // Handle unknown actions
+                response.sendRedirect("offer?action=list");
                 break;
         }
     }
@@ -59,20 +63,29 @@ public class OfferServlet extends HttpServlet {
     }
 
     protected void addOffer(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String companyName = request.getParameter("companyName");
-        String employeeType = request.getParameter("employeeType");
-        String location = request.getParameter("location");
-        String jobType = request.getParameter("jobType");
-        String experience = request.getParameter("experience");
-        String qualifications = request.getParameter("qualifications");
-        String salary = request.getParameter("salary");
-        Date datePosted = new Date();
+        HttpSession session = request.getSession();
+        User loggedUser = (User) session.getAttribute("user");
 
-//        Offer offer = new Offer(companyName, employeeType, location, jobType, experience, qualifications, salary, datePosted, /* recruiter */);
-//
-//        offerService.addOffer(offer);
+        if (loggedUser != null && loggedUser.getRole() == Role.RECRUITER) {
+            Recruiter recruiter = (Recruiter) loggedUser;
 
-        response.sendRedirect("offer?action=list");
+            String companyName = request.getParameter("companyName");
+            String employeeType = request.getParameter("employeeType");
+            String location = request.getParameter("location");
+            String jobType = request.getParameter("jobType");
+            String experience = request.getParameter("experience");
+            String qualifications = request.getParameter("qualifications");
+            String salary = request.getParameter("salary");
+            Date datePosted = new Date();
+
+            Offer offer = new Offer(companyName, employeeType, location, jobType, experience, qualifications, salary, datePosted, recruiter);
+
+            offerService.addOffer(offer);
+
+            response.sendRedirect("offer?action=list");
+        } else {
+            response.sendRedirect("error.jsp");
+        }
     }
 
 }
