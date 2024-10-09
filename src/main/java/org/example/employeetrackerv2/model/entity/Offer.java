@@ -10,41 +10,40 @@ public class Offer {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
-    private int id;  // int
+    private int id;
 
     @Column(name = "company_name", nullable = false, length = 255)
-    private String companyName;  // String
+    private String companyName;
 
     @Column(name = "employee_type", nullable = false, length = 50)
-    private String employeeType;  // String (e.g., Full Time, Part Time)
+    private String employeeType;
 
     @Column(name = "location", nullable = false, length = 255)
-    private String location;  // String (e.g., Beijing, China)
+    private String location;
 
     @Column(name = "job_type", nullable = false, length = 255)
-    private String jobType;  // String (e.g., Back-end Developer)
+    private String jobType;
 
     @Column(name = "experience", nullable = false)
-    private String experience;  // String (e.g., +2 Year)
+    private String experience;
 
     @Column(name = "qualifications", nullable = false, length = 255)
-    private String qualifications;  // String (e.g., MSCIT)
+    private String qualifications;
 
     @Column(name = "salary", nullable = false, length = 50)
-    private String salary;  // String (e.g., +50k to 70k)
+    private String salary;
 
     @Column(name = "date_posted", nullable = false)
     @Temporal(TemporalType.DATE)
-    private Date datePosted;  // Date (date posted)
+    private Date datePosted;
 
     @ManyToOne
     @JoinColumn(name = "recruiter_id", nullable = false)
-    private Recruiter recruiter;  // Recruiter who created the offer
+    private Recruiter recruiter;
 
     @OneToMany(mappedBy = "offer", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Application> applications;  // Applications for the offer
+    private List<Application> applications;
 
-    // Constructors
     public Offer() {}
 
     public Offer(String companyName, String employeeType, String location, String jobType, String experience, String qualifications, String salary, Date datePosted, Recruiter recruiter) {
@@ -59,7 +58,6 @@ public class Offer {
         this.recruiter = recruiter;
     }
 
-    // Getters and Setters
     public int getId() {
         return id;
     }
