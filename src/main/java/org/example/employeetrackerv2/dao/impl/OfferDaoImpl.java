@@ -36,6 +36,30 @@ public class OfferDaoImpl implements IOfferDao {
     }
 
     @Override
+    public Offer getOfferById(int id) {
+        EntityManager entityManager = JpaConfig.getEntityManagerFactory().createEntityManager();
+        EntityTransaction transaction = null;
+        Offer offer = null;
+
+        try {
+            transaction = entityManager.getTransaction();
+            transaction.begin();
+
+            offer = entityManager.find(Offer.class, id);
+
+            transaction.commit();
+        } catch (Exception e) {
+            if (transaction != null) {
+                transaction.rollback();
+            }
+            e.printStackTrace();
+        } finally {
+            entityManager.close();
+        }
+        return offer;
+    }
+
+    @Override
     public void updateOfferStatuses() {
         EntityManager entityManager = JpaConfig.getEntityManagerFactory().createEntityManager();
         EntityTransaction transaction = null;

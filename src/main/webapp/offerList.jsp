@@ -27,6 +27,19 @@
         tr:hover {
             background-color: #f1f1f1;
         }
+        .apply-button {
+            background-color: #4CAF50; /* Green */
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 4px 2px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
     </style>
 </head>
 <body>
@@ -45,6 +58,7 @@
         <th>Date Posted</th>
         <th>Date Finished</th>
         <th>Status</th>
+        <th>Action</th>
     </tr>
     </thead>
     <tbody>
@@ -61,11 +75,14 @@
             <td>${offer.datePosted}</td>
             <td>${offer.dateFinished}</td>
             <td>${offer.status}</td>
+            <td>
+                <a class="apply-button" href="offer?action=applyOfferForm&offerId=${offer.id}">Apply</a>
+            </td>
         </tr>
     </c:forEach>
     <c:if test="${empty offers}">
         <tr>
-            <td colspan="11" style="text-align: center;">No job offers available.</td>
+            <td colspan="12" style="text-align: center;">No job offers available.</td>
         </tr>
     </c:if>
     </tbody>
