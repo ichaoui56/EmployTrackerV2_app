@@ -74,7 +74,7 @@
             <td>${offer.dateFinished}</td>
             <td>${offer.status}</td>
             <td>
-                <a class="apply-button" href="offer?action=applyOfferForm&offerId=${offer.id}">Apply</a>
+                <a class="apply-button" href="application?action=applyOfferForm&offerId=${offer.id}">Apply</a>
             </td>
         </tr>
     </c:forEach>

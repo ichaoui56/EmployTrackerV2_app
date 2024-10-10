@@ -1,6 +1,9 @@
 package org.example.employeetrackerv2.model.entity;
 
 import jakarta.persistence.*;
+import org.example.employeetrackerv2.model.enums.OfferStatus;
+import org.example.employeetrackerv2.model.enums.Status;
+
 import java.util.Date;
 
 @Entity
@@ -11,15 +14,19 @@ public class Leave {
     @Column(name = "id", nullable = false)
     private int id;
 
-    @Column(name = "motif", nullable = false, length = 255)
-    private String motif;
+    @Column(name = "leave_reason", nullable = false, length = 255)
+    private String leaveReason;
+
+    @Column(name = "periode", nullable = false, length = 255)
+    private String periode;
 
     @Column(name = "leave_date", nullable = false)
     @Temporal(TemporalType.DATE)
     private Date leaveDate;
 
-    @Column(name = "document", length = 255)
-    private String document;
+    @Enumerated(EnumType.STRING)
+    @Column(name = "status", nullable = false)
+    private Status status;
 
     @ManyToOne
     @JoinColumn(name = "employee_id", nullable = false)
@@ -27,10 +34,11 @@ public class Leave {
 
     public Leave() {}
 
-    public Leave(String motif, Date leaveDate, String document, Employee employee) {
-        this.motif = motif;
+    public Leave(String periode, Date leaveDate, String leaveReason, Employee employee) {
+        this.leaveReason = leaveReason;
         this.leaveDate = leaveDate;
-        this.document = document;
+        this.status = Status.received;
+        this.periode = periode;
         this.employee = employee;
     }
 
@@ -43,11 +51,11 @@ public class Leave {
     }
 
     public String getMotif() {
-        return motif;
+        return leaveReason;
     }
 
     public void setMotif(String motif) {
-        this.motif = motif;
+        this.leaveReason = motif;
     }
 
     public Date getLeaveDate() {
@@ -58,12 +66,20 @@ public class Leave {
         this.leaveDate = leaveDate;
     }
 
-    public String getDocument() {
-        return document;
+    public String getPeriode() {
+        return periode;
     }
 
-    public void setDocument(String document) {
-        this.document = document;
+    public void setPeriode(String periode) {
+        this.periode = periode;
+    }
+
+    public Status getStatus() {
+        return status;
+    }
+
+    public void setStatus(Status periode) {
+        this.status = status;
     }
 
     public Employee getEmployee() {
