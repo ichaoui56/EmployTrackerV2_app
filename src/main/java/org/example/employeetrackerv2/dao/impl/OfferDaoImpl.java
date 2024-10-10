@@ -36,7 +36,7 @@ public class OfferDaoImpl implements IOfferDao {
     }
 
     @Override
-    public void updateOfferStatus() {
+    public void updateOfferStatuses() {
         EntityManager entityManager = JpaConfig.getEntityManagerFactory().createEntityManager();
         EntityTransaction transaction = null;
 
@@ -44,14 +44,14 @@ public class OfferDaoImpl implements IOfferDao {
             transaction = entityManager.getTransaction();
             transaction.begin();
 
-            List<Offer> offers = entityManager.createQuery("SELECT o FROM Offer o", Offer.class).getResultList();
             Date currentDate = new Date();
 
-            for (Offer offer : offers) {
-                long difference = currentDate.getTime() - offer.getDatePosted().getTime();
-                long daysDifference = difference / (1000 * 60 * 60 * 24);
+            List<Offer> offers = entityManager.createQuery("SELECT o FROM Offer o WHERE o.status = :status", Offer.class)
+                    .setParameter("status", OfferStatus.ACTIVE)
+                    .getResultList();
 
-                if (daysDifference > 30 && offer.getStatus() != OfferStatus.EXPIRED) {
+            for (Offer offer : offers) {
+                if (offer.getDateFinished().before(currentDate)) {
                     offer.setStatus(OfferStatus.EXPIRED);
                     entityManager.merge(offer);
                 }
@@ -66,5 +66,25 @@ public class OfferDaoImpl implements IOfferDao {
         } finally {
             entityManager.close();
         }
+
+
     }
+
+    @Override
+    public List<Offer> getAllOffers() {
+        EntityManager entityManager = JpaConfig.getEntityManagerFactory().createEntityManager();
+        List<Offer> offers = null;
+
+        try {
+            offers = entityManager.createQuery("SELECT o FROM Offer o", Offer.class).getResultList();
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            entityManager.close();
+        }
+
+        return offers;
     }
+
+
+}

@@ -16,7 +16,10 @@ import org.example.employeetrackerv2.service.IOfferService;
 import org.example.employeetrackerv2.service.impl.OfferServiceImpl;
 
 import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 @WebServlet("/offer")
 public class OfferServlet extends HttpServlet {
@@ -39,6 +42,9 @@ public class OfferServlet extends HttpServlet {
             case "addOfferForm":
                 showOfferForm(request, response);
                 break;
+            case "listOffers":
+                listOffers(request, response); // Call the method to display offers
+                break;
             default:
                 break;
         }
@@ -50,7 +56,11 @@ public class OfferServlet extends HttpServlet {
 
         switch (action) {
             case "addOffer":
-                addOffer(request, response);
+                try {
+                    addOffer(request, response);
+                } catch (ParseException e) {
+                    throw new RuntimeException(e);
+                }
                 break;
             default:
                 response.sendRedirect("offer?action=list");
@@ -62,7 +72,14 @@ public class OfferServlet extends HttpServlet {
         request.getRequestDispatcher("addOfferForm.jsp").forward(request,response);
     }
 
-    protected void addOffer(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void listOffers(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        offerService.updateOfferStatus();
+        List<Offer> offers = offerService.getAllOffers();
+        request.setAttribute("offers", offers);
+        request.getRequestDispatcher("offerList.jsp").forward(request, response);
+    }
+
+    protected void addOffer(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, ParseException {
         HttpSession session = request.getSession();
         User loggedUser = (User) session.getAttribute("user");
 
@@ -77,8 +94,17 @@ public class OfferServlet extends HttpServlet {
             String qualifications = request.getParameter("qualifications");
             String salary = request.getParameter("salary");
             Date datePosted = new Date();
+            String dateFinishedStr = request.getParameter("dateFinished");
 
-            Offer offer = new Offer(companyName, employeeType, location, jobType, experience, qualifications, salary, datePosted, recruiter);
+            Date dateFinished = null;
+            if (dateFinishedStr != null && !dateFinishedStr.isEmpty()) {
+                dateFinished = new SimpleDateFormat("yyyy-MM-dd").parse(dateFinishedStr);
+            } else {
+                response.sendRedirect("error.jsp");
+                return;
+            }
+
+            Offer offer = new Offer(companyName, employeeType, location, jobType, experience, qualifications, salary,dateFinished, datePosted, recruiter);
 
             offerService.addOffer(offer);
 
@@ -87,5 +113,4 @@ public class OfferServlet extends HttpServlet {
             response.sendRedirect("error.jsp");
         }
     }
-
 }

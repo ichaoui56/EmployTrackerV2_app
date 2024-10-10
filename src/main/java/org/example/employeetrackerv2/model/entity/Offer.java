@@ -26,7 +26,7 @@ public class Offer {
     @Column(name = "job_type", nullable = false, length = 255)
     private String jobType;
 
-    @Column(name = "experience", nullable = false)
+    @Column(name = "experience", nullable = false, length = 255)
     private String experience;
 
     @Column(name = "qualifications", nullable = false, length = 255)
@@ -38,6 +38,10 @@ public class Offer {
     @Column(name = "date_posted", nullable = false)
     @Temporal(TemporalType.DATE)
     private Date datePosted;
+
+    @Column(name = "date_finished", nullable = false)
+    @Temporal(TemporalType.DATE)
+    private Date dateFinished;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "status", nullable = false)
@@ -52,7 +56,8 @@ public class Offer {
 
     public Offer() {}
 
-    public Offer(String companyName, String employeeType, String location, String jobType, String experience, String qualifications, String salary, Date datePosted, Recruiter recruiter) {
+    public Offer(String companyName, String employeeType, String location, String jobType, String experience,
+                 String qualifications, String salary,Date dateFinished, Date datePosted, Recruiter recruiter) {
         this.companyName = companyName;
         this.employeeType = employeeType;
         this.location = location;
@@ -60,6 +65,7 @@ public class Offer {
         this.experience = experience;
         this.qualifications = qualifications;
         this.salary = salary;
+        this.dateFinished = dateFinished;
         this.datePosted = datePosted;
         this.recruiter = recruiter;
         this.status = OfferStatus.ACTIVE;
@@ -143,6 +149,14 @@ public class Offer {
 
     public void setDatePosted(Date datePosted) {
         this.datePosted = datePosted;
+    }
+
+    public Date getDateFinished() {
+        return dateFinished;
+    }
+
+    public void setDateFinished(Date dateFinished) {
+        this.dateFinished = dateFinished;
     }
 
     public Recruiter getRecruiter() {
