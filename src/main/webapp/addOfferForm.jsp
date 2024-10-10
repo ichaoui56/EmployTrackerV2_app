@@ -36,6 +36,9 @@
   <label for="salary">Salary:</label><br>
   <input type="text" id="salary" name="salary" required><br><br>
 
+  <label for="dateFinished">Date Finished (YYYY-MM-DD):</label><br>
+  <input type="date" id="dateFinished" name="dateFinished" required><br><br>
+
   <input type="submit" value="Add Offer">
 </form>
 
