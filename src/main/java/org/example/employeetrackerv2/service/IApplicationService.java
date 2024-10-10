@@ -10,4 +10,7 @@ public interface IApplicationService {
     void applyForOffer(Application application);
     List<Application> getAllApplications();
     List<Application> getFiltredApplications(Status applicationStatus);
+    void updateStatus(int id, Status status);
+
+    Application getApplicationById(int id);
 }

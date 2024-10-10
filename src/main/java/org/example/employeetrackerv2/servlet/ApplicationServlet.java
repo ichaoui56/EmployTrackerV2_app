@@ -69,6 +69,9 @@ public class ApplicationServlet extends HttpServlet {
             case "applyOffer":
                 applyOffer(request, response);
                 break;
+            case "updateApplicationStatus":
+                updateApplicationStatus(request, response);
+                break;
             default:
                 response.sendRedirect("offer?action=list");
                 break;
@@ -132,6 +135,16 @@ public class ApplicationServlet extends HttpServlet {
         request.setAttribute("statuses", Status.values());
 
         request.getRequestDispatcher("displayApplications.jsp").forward(request, response);
+    }
+
+    protected void updateApplicationStatus(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        int applicationId = Integer.parseInt(request.getParameter("applicationId"));
+        String statusParam = request.getParameter("status");
+        Status newStatus = Status.valueOf(statusParam);
+
+        applicationService.updateStatus(applicationId, newStatus);
+
+        response.sendRedirect("application?action=displayAllApplications");
     }
 
 }
