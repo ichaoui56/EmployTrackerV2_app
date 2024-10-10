@@ -50,12 +50,12 @@ public class Leave {
         this.id = id;
     }
 
-    public String getMotif() {
+    public String getLeaveReason() {
         return leaveReason;
     }
 
-    public void setMotif(String motif) {
-        this.leaveReason = motif;
+    public void setLeaveReason(String leaveReason) {
+        this.leaveReason = leaveReason;
     }
 
     public Date getLeaveDate() {
@@ -78,7 +78,7 @@ public class Leave {
         return status;
     }
 
-    public void setStatus(Status periode) {
+    public void setStatus(Status status) {
         this.status = status;
     }
 
