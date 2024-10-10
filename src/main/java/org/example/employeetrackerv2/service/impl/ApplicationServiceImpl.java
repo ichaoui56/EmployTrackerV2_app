@@ -2,7 +2,6 @@ package org.example.employeetrackerv2.service.impl;
 
 import org.example.employeetrackerv2.dao.IApplicationDao;
 import org.example.employeetrackerv2.model.entity.Application;
-import org.example.employeetrackerv2.model.enums.JobType;
 import org.example.employeetrackerv2.model.enums.Status;
 import org.example.employeetrackerv2.service.IApplicationService;
 
@@ -28,6 +27,16 @@ public class ApplicationServiceImpl implements IApplicationService {
     @Override
     public List<Application> getFiltredApplications(Status applicationStatus){
         return applicationDao.getFilteredApplicationsByStatus( applicationStatus);
+    }
+
+    @Override
+    public void updateStatus(int id, Status status){
+        applicationDao.updateApplicationStatus(id, status);
+    }
+
+    @Override
+    public Application getApplicationById(int id){
+        return applicationDao.getAppById(id);
     }
 
 }

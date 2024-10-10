@@ -18,7 +18,7 @@
         }
         tr:hover {background-color: #f5f5f5;}
         form {
-            margin-bottom: 20px;
+            margin-bottom: 0; /* Adjusted to remove extra margin */
         }
         label {
             margin-right: 10px;
@@ -46,7 +46,6 @@
     <button type="submit">Filter</button>
 </form>
 
-
 <!-- Display Applications Table -->
 <c:if test="${empty applications}">
     <p>No applications found.</p>
@@ -63,7 +62,8 @@
             <th>Job Title</th>
             <th>Description</th>
             <th>Status</th>
-            <th>Offer's company</th>
+            <th>Offer's Company</th>
+            <th>Action</th>
         </tr>
         </thead>
         <tbody>
@@ -77,6 +77,18 @@
                 <td>${application.description}</td>
                 <td>${application.status}</td>
                 <td>${application.offer.companyName}</td>
+                <td>
+                    <form action="application" method="post">
+                        <input type="hidden" name="action" value="updateApplicationStatus">
+                        <input type="hidden" name="applicationId" value="${application.id}">
+                        <select name="status">
+                            <c:forEach var="status" items="${statuses}">
+                                <option value="${status}" <c:if test="${status == application.status}">selected</c:if>>${status}</option>
+                            </c:forEach>
+                        </select>
+                        <input type="submit" value="Update">
+                    </form>
+                </td>
             </tr>
         </c:forEach>
         </tbody>
