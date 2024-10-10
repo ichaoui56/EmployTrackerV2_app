@@ -1,4 +1,4 @@
-package org.example.employeetrackerv2.controller;
+package org.example.employeetrackerv2.servlet;
 
 import org.example.employeetrackerv2.dao.IUserDao;
 import org.example.employeetrackerv2.dao.impl.UserDaoImpl;

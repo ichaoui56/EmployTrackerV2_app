@@ -49,7 +49,6 @@
     <tr>
         <th>ID</th>
         <th>Company Name</th>
-        <th>Employee Type</th>
         <th>Location</th>
         <th>Job Type</th>
         <th>Experience</th>
@@ -66,7 +65,6 @@
         <tr>
             <td>${offer.id}</td>
             <td>${offer.companyName}</td>
-            <td>${offer.employeeType}</td>
             <td>${offer.location}</td>
             <td>${offer.jobType}</td>
             <td>${offer.experience}</td>

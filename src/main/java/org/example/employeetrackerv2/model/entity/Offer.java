@@ -1,6 +1,7 @@
 package org.example.employeetrackerv2.model.entity;
 
 import jakarta.persistence.*;
+import org.example.employeetrackerv2.model.enums.JobType;
 import org.example.employeetrackerv2.model.enums.OfferStatus;
 
 import java.util.Date;
@@ -17,14 +18,12 @@ public class Offer {
     @Column(name = "company_name", nullable = false, length = 255)
     private String companyName;
 
-    @Column(name = "employee_type", nullable = false, length = 50)
-    private String employeeType;
-
     @Column(name = "location", nullable = false, length = 255)
     private String location;
 
+    @Enumerated(EnumType.STRING)
     @Column(name = "job_type", nullable = false, length = 255)
-    private String jobType;
+    private JobType jobType;
 
     @Column(name = "experience", nullable = false, length = 255)
     private String experience;
@@ -56,10 +55,9 @@ public class Offer {
 
     public Offer() {}
 
-    public Offer(String companyName, String employeeType, String location, String jobType, String experience,
+    public Offer(String companyName,  String location, JobType jobType, String experience,
                  String qualifications, String salary,Date dateFinished, Date datePosted, Recruiter recruiter) {
         this.companyName = companyName;
-        this.employeeType = employeeType;
         this.location = location;
         this.jobType = jobType;
         this.experience = experience;
@@ -87,14 +85,6 @@ public class Offer {
         this.companyName = companyName;
     }
 
-    public String getEmployeeType() {
-        return employeeType;
-    }
-
-    public void setEmployeeType(String employeeType) {
-        this.employeeType = employeeType;
-    }
-
     public String getLocation() {
         return location;
     }
@@ -103,11 +93,11 @@ public class Offer {
         this.location = location;
     }
 
-    public String getJobType() {
+    public JobType getJobType() {
         return jobType;
     }
 
-    public void setJobType(String jobType) {
+    public void setJobType(JobType jobType) {
         this.jobType = jobType;
     }
 

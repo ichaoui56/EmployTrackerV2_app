@@ -10,7 +10,6 @@
 <c:if test="${not empty offer}">
   <h3>Offer Details</h3>
   <p>Company Name: ${offer.companyName}</p>
-  <p>Employee Type: ${offer.employeeType}</p>
   <p>Location: ${offer.location}</p>
   <p>Job Type: ${offer.jobType}</p>
   <p>Experience: ${offer.experience}</p>
@@ -19,7 +18,7 @@
   <p>Date Finished: ${offer.dateFinished}</p>
 
   <h3>Application Form</h3>
-  <form action="offer?action=applyOffer" method="post">
+  <form action="application?action=applyOffer" method="post">
     <input type="hidden" name="offerId" value="${offer.id}"/>
 
     <label for="name">Name:</label>
@@ -31,11 +30,8 @@
     <label for="phoneNo">Phone Number:</label>
     <input type="text" id="phoneNo" name="phoneNo" required/><br/>
 
-    <label for="jobTitle">Job Title:</label>
-    <input type="text" id="jobTitle" name="jobTitle" value="${offer.jobType}" readonly/><br/>
-
-    <label for="jobTypes">Job Types:</label>
-    <input type="text" id="jobTypes" name="jobTypes" required/><br/>
+    <label for="jobTypes">Job Title:</label>
+    <input type="text" id="jobTypes" name="jobTitle" required/><br/>
 
     <label for="description">Description:</label><br/>
     <textarea id="description" name="description" rows="4" cols="50" required></textarea><br/>
