@@ -24,7 +24,6 @@ public class LeaveServiceImpl implements ILeaveService {
 
         String to = "ilyaschaoui73@gmail.com";
         String subject = "New Leave Request Created";
-
         String message = "A new leave request has been created:\n\n" +
                 "Leave ID: " + leave.getId() + "\n" +
                 "Employee: " + leave.getEmployee().getName() + "\n" +
@@ -46,6 +45,7 @@ public class LeaveServiceImpl implements ILeaveService {
         Leave leave = leaveDao.updateLeaveStatus(leaveId, newStatus);
         if (leave != null) {
             String to = leave.getEmployee().getEmail();
+
             String subject = "Leave Status Update";
             String message = "Dear " + leave.getEmployee().getName() + ",\n\n" +
                     "Your leave request on " + leave.getLeaveDate() + " has been updated to: " + newStatus + ".\n\n" +
