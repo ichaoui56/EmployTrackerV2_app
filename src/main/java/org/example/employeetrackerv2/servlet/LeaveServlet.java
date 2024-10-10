@@ -19,6 +19,7 @@ import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 @WebServlet("/leave")
 public class LeaveServlet extends HttpServlet {
@@ -41,6 +42,9 @@ public class LeaveServlet extends HttpServlet {
             case "addLeaveForm":
                 addLeaveForm(request, response);
                 break;
+            case "listLeaves":
+                listLeaves(request, response);
+                break;
             default:
                 response.sendRedirect("offer?action=list");
                 break;
@@ -55,6 +59,9 @@ public class LeaveServlet extends HttpServlet {
             case "addLeave":
                 handleAddLeave(request, response);
                 break;
+            case "updateLeaveStatus":
+                handleUpdateLeaveStatus(request, response);
+                break;
             default:
                 response.sendRedirect("offer?action=list");
                 break;
@@ -63,6 +70,13 @@ public class LeaveServlet extends HttpServlet {
 
     protected void addLeaveForm(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.getRequestDispatcher("addLeaveForm.jsp").forward(request, response);
+    }
+
+    private void listLeaves(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        List<Leave> leaves = leaveService.getAllLeaves();
+        request.setAttribute("leaves", leaves);
+        request.setAttribute("status", Status.values());
+        request.getRequestDispatcher("listLeaves.jsp").forward(request, response);
     }
 
     private void handleAddLeave(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -86,11 +100,28 @@ public class LeaveServlet extends HttpServlet {
 
             Leave leave = new Leave(leaveReason, leaveDate, periode, employee);
 
-            leaveDao.insert(leave);
+            leaveService.addLeave(leave);
 
             response.sendRedirect("offer?action=list");
         } else {
             response.sendRedirect("error.jsp");
         }
+    }
+
+    private void handleUpdateLeaveStatus(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String leaveIdStr = request.getParameter("leaveId");
+        String newStatusStr = request.getParameter("status");
+
+        if (leaveIdStr != null && newStatusStr != null) {
+            try {
+                int leaveId = Integer.parseInt(leaveIdStr);
+                Status newStatus = Status.valueOf(newStatusStr);
+                leaveService.updateLeaveStatus(leaveId, newStatus);
+            } catch (IllegalArgumentException e) {
+                e.printStackTrace();
+            }
+        }
+
+        response.sendRedirect("leave?action=listLeaves");
     }
 }

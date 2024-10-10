@@ -6,6 +6,7 @@ import jakarta.persistence.TypedQuery;
 import org.example.employeetrackerv2.config.JpaConfig;
 import org.example.employeetrackerv2.dao.IApplicationDao;
 import org.example.employeetrackerv2.model.entity.Application;
+import org.example.employeetrackerv2.model.entity.Leave;
 import org.example.employeetrackerv2.model.entity.Offer;
 import org.example.employeetrackerv2.model.enums.Status;
 import org.example.employeetrackerv2.smtp.NotificationService;
@@ -100,26 +101,20 @@ public class ApplicationDaoImpl implements IApplicationDao {
     }
 
     @Override
-    public void updateApplicationStatus(int applicationId, Status newStatus) {
+    public Application updateApplicationStatus(int applicationId, Status newStatus) {
         EntityManager entityManager = JpaConfig.getEntityManagerFactory().createEntityManager();
         EntityTransaction transaction = null;
-        NotificationService notificationService = new NotificationService();
+        Application application = null;
 
         try {
             transaction = entityManager.getTransaction();
             transaction.begin();
 
-            Application application = entityManager.find(Application.class, applicationId);
-            System.out.println(application.getEmail());
+            application = entityManager.find(Application.class, applicationId);
             if (application != null) {
                 application.setStatus(newStatus);
                 entityManager.merge(application);
                 transaction.commit();
-
-                String subject = "Application Status Update";
-                String messageContent = "Dear Candidate,\n\nYour application status has been updated to: " + newStatus + "\n\nBest regards,\nRecruitment Team";
-                notificationService.sendEmail(application.getEmail(), subject, messageContent);
-                System.out.println(application.getEmail());
             }
         } catch (Exception e) {
             if (transaction != null && transaction.isActive()) {
@@ -129,7 +124,9 @@ public class ApplicationDaoImpl implements IApplicationDao {
         } finally {
             entityManager.close();
         }
+        return application;
     }
+
 
     @Override
     public Application getAppById(int id){

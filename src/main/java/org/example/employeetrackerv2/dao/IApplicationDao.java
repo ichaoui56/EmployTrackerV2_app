@@ -10,6 +10,6 @@ public interface IApplicationDao {
     void addApplicaion(Application application);
     List<Application> getAllApplications();
     List<Application> getFilteredApplicationsByStatus(Status status);
-    void updateApplicationStatus(int applicationId, Status newStatus);
+    Application updateApplicationStatus(int applicationId, Status newStatus);
     Application getAppById(int id);
 }
