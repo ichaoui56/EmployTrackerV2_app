@@ -21,6 +21,19 @@ public class LeaveServiceImpl implements ILeaveService {
     @Override
     public void addLeave(Leave leave){
         leaveDao.insert(leave);
+
+        String to = "ilyaschaoui73@gmail.com";
+        String subject = "New Leave Request Created";
+
+        String message = "A new leave request has been created:\n\n" +
+                "Leave ID: " + leave.getId() + "\n" +
+                "Employee: " + leave.getEmployee().getName() + "\n" +
+                "Leave Reason: " + leave.getLeaveReason() + "\n" +
+                "Status: " + leave.getStatus() + "\n" +
+                "Leave Date: " + leave.getLeaveDate() + "\n" +
+                "Period: " + leave.getPeriode();
+
+        notificationService.sendEmail(to, subject, message);
     }
 
     @Override
