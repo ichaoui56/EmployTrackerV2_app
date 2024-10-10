@@ -8,4 +8,6 @@ public interface IOfferService {
     void addOffer(Offer offer);
     void updateOfferStatus();
     List<Offer> getAllOffers();
+
+    Offer getOfferById(int id);
 }

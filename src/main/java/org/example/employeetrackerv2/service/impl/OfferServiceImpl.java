@@ -27,4 +27,9 @@ public class OfferServiceImpl implements IOfferService {
     public List<Offer> getAllOffers() {
         return offerDao.getAllOffers();
     }
+
+    @Override
+    public Offer getOfferById(int id){
+        return offerDao.getOfferById(id);
+    }
 }

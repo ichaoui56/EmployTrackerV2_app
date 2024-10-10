@@ -1,5 +1,6 @@
 package org.example.employeetrackerv2.model.entity;
 
+import org.example.employeetrackerv2.model.enums.OfferStatus;
 import org.example.employeetrackerv2.model.enums.Role;
 import org.example.employeetrackerv2.model.enums.Status;
 
@@ -31,9 +32,6 @@ public class Application {
     @Column(name = "description", length = 1000)
     private String description;
 
-    @Column(name = "cv_path", length = 255)
-    private String cvPath;
-
     @Enumerated(EnumType.STRING)
     @Column(name = "status", nullable = false, length = 50)
     private Status status;
@@ -44,15 +42,14 @@ public class Application {
 
     public Application() {}
 
-    public Application(String name, String email, String phoneNo, String jobTitle, String jobTypes, String description, String cvPath, Status status, Offer offer) {
+    public Application(String name, String email, String phoneNo, String jobTitle, String jobTypes, String description, Offer offer) {
         this.name = name;
         this.email = email;
         this.phoneNo = phoneNo;
         this.jobTitle = jobTitle;
         this.jobTypes = jobTypes;
         this.description = description;
-        this.cvPath = cvPath;
-        this.status = status;
+        this.status = Status.received;
         this.offer = offer;
     }
 
@@ -110,14 +107,6 @@ public class Application {
 
     public void setDescription(String description) {
         this.description = description;
-    }
-
-    public String getCvPath() {
-        return cvPath;
-    }
-
-    public void setCvPath(String cvPath) {
-        this.cvPath = cvPath;
     }
 
     public Status getStatus() {
