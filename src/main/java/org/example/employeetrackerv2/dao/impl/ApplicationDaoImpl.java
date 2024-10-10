@@ -2,9 +2,14 @@ package org.example.employeetrackerv2.dao.impl;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityTransaction;
+import jakarta.persistence.TypedQuery;
 import org.example.employeetrackerv2.config.JpaConfig;
 import org.example.employeetrackerv2.dao.IApplicationDao;
 import org.example.employeetrackerv2.model.entity.Application;
+import org.example.employeetrackerv2.model.enums.JobType;
+import org.example.employeetrackerv2.model.enums.Status;
+
+import java.util.List;
 
 public class ApplicationDaoImpl implements IApplicationDao {
 
@@ -30,5 +35,66 @@ public class ApplicationDaoImpl implements IApplicationDao {
         }
     }
 
+    @Override
+    public List<Application> getAllApplications(){
+        EntityManager entityManager = JpaConfig.getEntityManagerFactory().createEntityManager();
+        EntityTransaction transaction = null;
+        List<Application> applications = null;
 
+        try {
+            transaction = entityManager.getTransaction();
+            transaction.begin();
+
+            var query = entityManager.createQuery("SELECT e FROM Application e", Application.class);
+            applications = query.getResultList();
+
+            transaction.commit();
+        } catch (Exception e) {
+            if (transaction != null && transaction.isActive()) {
+                transaction.rollback();
+            }
+            e.printStackTrace();
+        } finally {
+            entityManager.close();
+        }
+
+        return applications;
+    }
+
+    @Override
+    public List<Application> getFilteredApplicationsByStatus(Status status) {
+        EntityManager entityManager = JpaConfig.getEntityManagerFactory().createEntityManager();
+        EntityTransaction transaction = null;
+        List<Application> applications = null;
+
+        try {
+            transaction = entityManager.getTransaction();
+            transaction.begin();
+
+            String queryString = "SELECT a FROM Application a WHERE 1=1";
+
+            if (status != null) {
+                queryString += " AND a.status = :status";
+            }
+
+            TypedQuery<Application> query = entityManager.createQuery(queryString, Application.class);
+
+            if (status != null) {
+                query.setParameter("status", status);
+            }
+
+            applications = query.getResultList();
+
+            transaction.commit();
+        } catch (Exception e) {
+            if (transaction != null && transaction.isActive()) {
+                transaction.rollback();
+            }
+            e.printStackTrace();
+        } finally {
+            entityManager.close();
+        }
+
+        return applications;
+    }
 }

@@ -1,5 +1,6 @@
 package org.example.employeetrackerv2.model.entity;
 
+import org.example.employeetrackerv2.model.enums.JobType;
 import org.example.employeetrackerv2.model.enums.OfferStatus;
 import org.example.employeetrackerv2.model.enums.Role;
 import org.example.employeetrackerv2.model.enums.Status;
@@ -26,9 +27,6 @@ public class Application {
     @Column(name = "job_title", length = 255)
     private String jobTitle;
 
-    @Column(name = "job_types", length = 255)
-    private String jobTypes;
-
     @Column(name = "description", length = 1000)
     private String description;
 
@@ -42,12 +40,11 @@ public class Application {
 
     public Application() {}
 
-    public Application(String name, String email, String phoneNo, String jobTitle, String jobTypes, String description, Offer offer) {
+    public Application(String name, String email, String phoneNo, String jobTitle, String description, Offer offer) {
         this.name = name;
         this.email = email;
         this.phoneNo = phoneNo;
         this.jobTitle = jobTitle;
-        this.jobTypes = jobTypes;
         this.description = description;
         this.status = Status.received;
         this.offer = offer;
@@ -91,14 +88,6 @@ public class Application {
 
     public void setJobTitle(String jobTitle) {
         this.jobTitle = jobTitle;
-    }
-
-    public String getJobTypes() {
-        return jobTypes;
-    }
-
-    public void setJobTypes(String jobTypes) {
-        this.jobTypes = jobTypes;
     }
 
     public String getDescription() {

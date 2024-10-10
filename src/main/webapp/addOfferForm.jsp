@@ -14,18 +14,15 @@
   <label for="companyName">Company Name:</label><br>
   <input type="text" id="companyName" name="companyName" required><br><br>
 
-  <label for="employeeType">Employee Type:</label><br>
-  <select id="employeeType" name="employeeType" required>
-    <option value="Full-time">Full-time</option>
-    <option value="Part-time">Part-time</option>
-    <option value="Contract">Contract</option>
-  </select><br><br>
-
   <label for="location">Location:</label><br>
   <input type="text" id="location" name="location" required><br><br>
 
   <label for="jobType">Job Type:</label><br>
-  <input type="text" id="jobType" name="jobType" required><br><br>
+  <select id="jobType" name="jobType" required>
+    <c:forEach var="type" items="${jobTypes}">
+      <option value="${type}">${type}</option>
+    </c:forEach>
+  </select><br><br>
 
   <label for="experience">Experience Required:</label><br>
   <input type="text" id="experience" name="experience" required><br><br>

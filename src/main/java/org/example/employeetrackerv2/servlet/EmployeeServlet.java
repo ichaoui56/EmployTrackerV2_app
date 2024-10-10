@@ -1,4 +1,4 @@
-package org.example.employeetrackerv2.controller;
+package org.example.employeetrackerv2.servlet;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
