@@ -2,6 +2,7 @@ package org.example.employeetrackerv2.service.impl;
 
 import org.example.employeetrackerv2.dao.ILeaveDao;
 import org.example.employeetrackerv2.model.entity.Leave;
+import org.example.employeetrackerv2.model.entity.LeaveHistory;
 import org.example.employeetrackerv2.model.enums.Status;
 import org.example.employeetrackerv2.service.ILeaveService;
 import org.example.employeetrackerv2.smtp.NotificationService;
@@ -52,5 +53,10 @@ public class LeaveServiceImpl implements ILeaveService {
                     "Best regards,\nHR Team";
             notificationService.sendEmail(to, subject, message);
         }
+    }
+
+    @Override
+    public void addLeaveHistory(LeaveHistory leave) {
+        leaveDao.insertLeaveHistory(leave);
     }
 }

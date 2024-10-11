@@ -9,8 +9,11 @@
     <class>org.example.employeetrackerv2.model.entity.Application</class>
     <class>org.example.employeetrackerv2.model.entity.Leave</class>
     <class>org.example.employeetrackerv2.model.entity.EmployeeHistory</class>
+    <class>org.example.employeetrackerv2.model.entity.LeaveHistory</class>
     <class>org.example.employeetrackerv2.model.enums.Role</class>
     <class>org.example.employeetrackerv2.model.enums.Status</class>
+    <class>org.example.employeetrackerv2.model.enums.OfferStatus</class>
+    <class>org.example.employeetrackerv2.model.enums.JobType</class>
 
     <properties>
       <property name="jakarta.persistence.jdbc.driver" value="org.postgresql.Driver"/>

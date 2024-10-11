@@ -102,6 +102,9 @@ public class LeaveServlet extends HttpServlet {
 
             leaveService.addLeave(leave);
 
+            String modificationDetails = "Added new leave by " + employee.getName();
+            LeaveHistory history = new LeaveHistory(leave, modificationDetails);
+            leaveService.addLeaveHistory(history);
             response.sendRedirect("offer?action=list");
         } else {
             response.sendRedirect("error.jsp");
