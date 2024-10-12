@@ -1,0 +1,303 @@
+
+.authBtn {
+    font-weight: bold;
+    color: white;
+    border-radius: 2rem;
+    cursor: pointer;
+    width: 150px;
+    height: 42.66px;
+    border: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.authBtn .span-mother {
+    display: flex;
+    overflow: hidden;
+}
+
+
+.authBtn:hover .span-mother span {
+    transform: translateY(1.2em);
+}
+
+.authBtn .span-mother span:nth-child(1) {
+    transition: 0.2s;
+}
+
+.authBtn .span-mother span:nth-child(2) {
+    transition: 0.3s;
+}
+
+.authBtn .span-mother span:nth-child(3) {
+    transition: 0.4s;
+}
+
+.authBtn .span-mother span:nth-child(4) {
+    transition: 0.5s;
+}
+
+.authBtn .span-mother span:nth-child(5) {
+    transition: 0.6s;
+}
+
+.authBtn .span-mother span:nth-child(6) {
+    transition: 0.7s;
+}
+
+.authBtn .span-mother span:nth-child(7) {
+    transition: 0.8s;
+}
+
+.authBtn .span-mother span:nth-child(8) {
+    transition: 0.9s;
+}
+
+.authBtn .span-mother span:nth-child(9) {
+    transition: 0.1s;
+}
+
+.authBtn .span-mother span:nth-child(10) {
+    transition: 0.11s;
+}
+
+.authBtn .span-mother span:nth-child(11) {
+    transition: 0.12s;
+}
+
+.authBtn .span-mother2 {
+    display: flex;
+    position: absolute;
+    overflow: hidden;
+}
+
+.authBtn .span-mother2 span {
+    transform: translateY(-1.2em);
+}
+
+.authBtn:hover .span-mother2 span {
+    transform: translateY(0);
+}
+
+.authBtn .span-mother2 span {
+    transition: 0.2s;
+}
+
+.authBtn .span-mother2 span:nth-child(2) {
+    transition: 0.3s;
+}
+
+.authBtn .span-mother2 span:nth-child(3) {
+    transition: 0.4s;
+}
+
+.authBtn .span-mother2 span:nth-child(4) {
+    transition: 0.5s;
+}
+
+.authBtn .span-mother2 span:nth-child(5) {
+    transition: 0.6s;
+}
+
+.authBtn .span-mother2 span:nth-child(6) {
+    transition: 0.7s;
+}
+
+.authBtn .span-mother2 span:nth-child(7) {
+    transition: 0.8s;
+}
+
+.authBtn .span-mother2 span:nth-child(8) {
+    transition: 0.9s;
+}
+
+.authBtn .span-mother2 span:nth-child(9) {
+    transition: 0.1s;
+}
+
+.authBtn .span-mother2 span:nth-child(10) {
+    transition: 0.11s;
+}
+
+.authBtn .span-mother2 span:nth-child(11) {
+    transition: 0.12s;
+}
+/* From Uiverse.io by zanina-yassine */
+.modal {
+    width: fit-content;
+    height: fit-content;
+    background: #FFFFFF;
+    box-shadow: 0px 187px 75px rgba(0, 0, 0, 0.01), 0px 105px 63px rgba(0, 0, 0, 0.05), 0px 47px 47px rgba(0, 0, 0, 0.09), 0px 12px 26px rgba(0, 0, 0, 0.1), 0px 0px 0px rgba(0, 0, 0, 0.1);
+    border-radius: 26px;
+    max-width: 450px;
+}
+
+.form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding: 20px;
+}
+
+.payment--options {
+    width: calc(100% - 40px);
+    display: grid;
+    grid-template-columns: 33% 34% 33%;
+    gap: 20px;
+    padding: 10px;
+}
+
+.payment--options button {
+    height: 55px;
+    background: #F2F2F2;
+    border-radius: 11px;
+    padding: 0;
+    border: 0;
+    outline: none;
+}
+
+.payment--options button svg {
+    height: 18px;
+}
+
+.payment--options button:last-child svg {
+    height: 22px;
+}
+
+.separator {
+    width: calc(100% - 20px);
+    display: grid;
+    grid-template-columns: 1fr 2fr 1fr;
+    gap: 10px;
+    color: #8B8E98;
+    margin: 0 10px;
+}
+
+.separator > p {
+    word-break: keep-all;
+    display: block;
+    text-align: center;
+    font-weight: 600;
+    font-size: 11px;
+    margin: auto;
+}
+
+.separator .line {
+    display: inline-block;
+    width: 100%;
+    height: 1px;
+    border: 0;
+    background-color: #e8e8e8;
+    margin: auto;
+}
+
+.credit-card-info--form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.input_container {
+    width: 100%;
+    height: fit-content;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.split {
+    display: grid;
+    grid-template-columns: 4fr 2fr;
+    gap: 15px;
+}
+
+.split input {
+    width: 100%;
+}
+
+.input_label {
+    font-size: 10px;
+    color: #8B8E98;
+    font-weight: 600;
+}
+
+.input_field {
+    width: auto;
+    height: 40px;
+    padding: 0 0 0 16px;
+    border-radius: 9px;
+    outline: none;
+    background-color: #F2F2F2;
+    border: 1px solid #e5e5e500;
+    transition: all 0.3s cubic-bezier(0.15, 0.83, 0.66, 1);
+}
+
+.input_field:focus {
+    border: 1px solid transparent;
+    box-shadow: 0px 0px 0px 2px #242424;
+    background-color: transparent;
+}
+
+.purchase--btn {
+    height: 55px;
+    background: #F2F2F2;
+    border-radius: 11px;
+    border: 0;
+    outline: none;
+    color: #ffffff;
+    font-size: 13px;
+    font-weight: 700;
+    background: linear-gradient(180deg, #363636 0%, #1B1B1B 50%, #000000 100%);
+    box-shadow: 0px 0px 0px 0px #FFFFFF, 0px 0px 0px 0px #000000;
+    transition: all 0.3s cubic-bezier(0.15, 0.83, 0.66, 1);
+}
+
+.purchase--btn:hover {
+    box-shadow: 0px 0px 0px 2px #FFFFFF, 0px 0px 0px 4px #0000003a;
+}
+
+/* Reset input number styles */
+.input_field::-webkit-outer-spin-button,
+.input_field::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+.input_field[type=number] {
+    -moz-appearance: textfield;
+}/* Container and select style */
+.custom-select {
+    width: fit-content;
+    padding: 10px;
+    border: 2px solid #007bff; /* Blue border */
+    border-radius: 8px;
+    background-color: #1b77df; /* Light background */
+    color: #ffffff; /* Text color */
+    font-size: 16px;
+    transition: border-color 0.3s, box-shadow 0.3s; /* Smooth transition */
+    appearance: none; /* Remove default arrow on some browsers */
+    position: relative;
+}
+
+/* Change border color on focus */
+.custom-select:focus {
+    border-color: #0056b3;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+    outline: none;
+}
+
+/* Customize the options */
+.custom-select option {
+    padding: 10px;
+    background-color: #007bff;
+    color: #333;
+    font-size: 16px;
+}
+
+/* Highlight the hovered or focused option */
+.custom-select option:hover {
+    background-color: #007bff;
+    color: black;
+}
+  

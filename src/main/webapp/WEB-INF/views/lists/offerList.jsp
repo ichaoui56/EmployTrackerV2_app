@@ -30,24 +30,30 @@
     <section class="section">
         <div class="container">
             <div class="row justify-content-center">
-                <div class="col-12 mt-4">
-                    <div class="features-absolute">
-                        <div class="d-md-flex justify-content-between align-items-center bg-white shadow rounded p-4">
-                            <form class="card-body text-start">
-                                <div class="registration-form text-dark text-start">
-                                    <div style="display: flex;justify-content: center; align-items: center">
-                                        <div class="col-lg-3 col-md-6 col-12">
-                                            <a type="submit" href="addOfferForm.jsp" style="height: 60px;padding-top: 17px;"
-                                               class="btn btn-primary searchbtn w-100">
-                                                Add Offer
-                                            </a>
-                                        </div><!--end col-->
-                                    </div>
-                                </div><!--end row-->
-                            </form><!--end form-->
+                <c:if test="${user != null && user.role == 'RECRUITER'}">
+
+                    <div class="col-12 mt-4">
+                        <div class="features-absolute">
+                            <div class="d-md-flex justify-content-between align-items-center bg-white shadow rounded p-4">
+                                <form class="card-body text-start">
+                                    <div class="registration-form text-dark text-start">
+                                        <div style="display: flex;justify-content: center; align-items: center">
+                                            <div class="col-lg-3 col-md-6 col-12">
+                                                <a type="submit" href="addOfferForm.jsp"
+                                                   style="height: 60px; padding-top: 17px;"
+                                                   class="btn btn-primary searchbtn w-100">
+                                                    Add Offer
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div><!--end row-->
+                                </form><!--end form-->
+                            </div>
                         </div>
                     </div>
-                </div><!--end col-->
+                    <!--end col-->
+                </c:if>
+
             </div><!--end row-->
         </div><!--end container-->
 

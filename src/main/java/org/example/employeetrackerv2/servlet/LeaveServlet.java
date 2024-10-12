@@ -63,20 +63,20 @@ public class LeaveServlet extends HttpServlet {
                 handleUpdateLeaveStatus(request, response);
                 break;
             default:
-                response.sendRedirect("offer?action=list");
+                response.sendRedirect("offer?action=listLeaves");
                 break;
         }
     }
 
     protected void addLeaveForm(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        request.getRequestDispatcher("addLeaveForm.jsp").forward(request, response);
+        request.getRequestDispatcher("WEB-INF/views/forms/addLeaveForm.jsp").forward(request, response);
     }
 
     private void listLeaves(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         List<Leave> leaves = leaveService.getAllLeaves();
         request.setAttribute("leaves", leaves);
         request.setAttribute("status", Status.values());
-        request.getRequestDispatcher("listLeaves.jsp").forward(request, response);
+        request.getRequestDispatcher("WEB-INF/views/lists/listLeaves.jsp").forward(request, response);
     }
 
     private void handleAddLeave(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -107,7 +107,7 @@ public class LeaveServlet extends HttpServlet {
             leaveService.addLeaveHistory(history);
             response.sendRedirect("offer?action=list");
         } else {
-            response.sendRedirect("error.jsp");
+            response.sendRedirect("WEB-INF/views/errors/error.jsp");
         }
     }
 

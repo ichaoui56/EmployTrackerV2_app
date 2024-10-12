@@ -82,20 +82,20 @@ public class EmployeeServlet extends HttpServlet {
     }
 
     private void addForm(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        req.getRequestDispatcher("addEmployeeForm.jsp").forward(req, resp);
+        req.getRequestDispatcher("WEB-INF/views/forms/addEmployeeForm.jsp").forward(req, resp);
     }
 
     private void employeeList(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         List<Employee> employees = employeeService.getAllEmployees();
         req.setAttribute("employees", employees);
-        req.getRequestDispatcher("employeeList.jsp").forward(req, resp);
+        req.getRequestDispatcher("WEB-INF/views/lists/employeeList.jsp").forward(req, resp);
     }
 
     private void showUpdateForm(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         int employeeId = Integer.parseInt(req.getParameter("id"));
         Employee employee = employeeService.findEmployeeById(employeeId);
         req.setAttribute("employee", employee);
-        req.getRequestDispatcher("updateEmployeeForm.jsp").forward(req, resp);
+        req.getRequestDispatcher("WEB-INF/views/forms/updateEmployeeForm.jsp").forward(req, resp);
     }
 
     private void insertUser(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -109,13 +109,16 @@ public class EmployeeServlet extends HttpServlet {
             String poste = req.getParameter("poste");
             long salary = Long.parseLong(req.getParameter("salary"));
             int childNumber = Integer.parseInt(req.getParameter("childNumber"));
-            int leaveBalance = Integer.parseInt(req.getParameter("leaveBalance"));
             Date birthDate = new SimpleDateFormat("yyyy-MM-dd").parse(req.getParameter("birthDate"));
             Date startDate = new SimpleDateFormat("yyyy-MM-dd").parse(req.getParameter("startDate"));
 
+
+            double allowance = employeeService.calculateFamilyAllowance(childNumber, salary);
+
+
            if (role == Role.EMPLOYEE){
                Employee employee = new Employee(
-                       name, email, password, role, birthDate, socialNumber, startDate, salary, childNumber, department, poste, leaveBalance
+                       name, email, password, role, birthDate, socialNumber, startDate, salary, childNumber, department, poste, allowance
                );
                employeeService.insert(employee);
 
@@ -162,9 +165,10 @@ public class EmployeeServlet extends HttpServlet {
             String poste = req.getParameter("poste");
             long salary = Long.parseLong(req.getParameter("salary"));
             int childNumber = Integer.parseInt(req.getParameter("childNumber"));
-            int leaveBalance = Integer.parseInt(req.getParameter("leaveBalance"));
             Date birthDate = new SimpleDateFormat("yyyy-MM-dd").parse(req.getParameter("birthDate"));
             Date startDate = new SimpleDateFormat("yyyy-MM-dd").parse(req.getParameter("startDate"));
+
+            double allowance = employeeService.calculateFamilyAllowance(childNumber, salary);
 
             Employee employee = employeeService.findEmployeeById(id);
             employee.setName(name);
@@ -175,9 +179,9 @@ public class EmployeeServlet extends HttpServlet {
             employee.setPoste(poste);
             employee.setSalary(salary);
             employee.setChildNumber(childNumber);
-            employee.setLeaveBalance(leaveBalance);
             employee.setBirthDate(birthDate);
             employee.setStartDate(startDate);
+            employee.setAllocationFamilial(allowance);
 
             employeeService.update(employee);
             String modificationDetails = "Updated employee with name: " + employee.getName();

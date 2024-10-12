@@ -45,5 +45,33 @@ public class EmployeeServiceImpl implements IEmployeeService {
         employeeDao.insertEmployeeHistory(history);
     }
 
+    @Override
+    public double calculateFamilyAllowance(int numberOfChildren, double salary) {
+        System.out.printf("Calculating for %d children with salary %.2f\n", numberOfChildren, salary);
+
+        double totalAllowance = 0;
+
+        if (salary <= 6000) {
+            for (int i = 1; i <= numberOfChildren; i++) {
+                if (i <= 3) {
+                    totalAllowance += 300;
+                } else {
+                    totalAllowance += 150;
+                }
+            }
+        } else if (salary >= 8000) {
+            for (int i = 1; i <= numberOfChildren; i++) {
+                if (i <= 3) {
+                    totalAllowance += 200;
+                } else {
+                    totalAllowance += 110;
+                }
+            }
+        }
+
+        System.out.printf("Total allowance calculated: %.2f\n", totalAllowance);
+        return totalAllowance;
+    }
+
 
 }

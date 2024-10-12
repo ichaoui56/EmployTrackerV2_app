@@ -30,60 +30,70 @@
     <!-- Start -->
     <section class="section">
         <div class="container mt-60">
-            <div class="row g-4">
-                <c:forEach var="leave" items="${leaves}">
-                    <div class="col-lg-4 col-md-6 col-12">
-                        <div class="job-post job-type-three rounded shadow bg-white p-4">
-                            <div class="d-flex justify-content-between">
-                                <div>
+            <div class="row justify-content-center">
 
-                                    <a href="employer-profile.html"
-                                       class="h4 company text-dark d-block mt-2">${leave.employee.name}</a>
-                                </div>
-                                <form action="leave" method="post" id="statusForm">
-                                    <input type="hidden" name="action" value="updateLeaveStatus">
-                                    <input type="hidden" name="leaveId" value="${leave.id}">
-                                    <select name="status" class="custom-select" onchange="this.form.submit()">
-                                        <c:forEach var="status" items="${status}">
-                                            <option value="${status}">${status}</option>
-                                        </c:forEach>
-                                    </select><br><br>
-                                </form>
-                            </div>
-
-                            <div>
-                                <p class="text-muted mt-2">${leave.periode}</p>
-
-                                <ul class="list-unstyled mb-0">
-                                    <li class="d-inline-block me-1"><a href="#" class="badge bg-primary">${leave.leaveDate}</a>
-                                    </li>
-                                    <li class="d-inline-block me-1"><a href="#" class="badge bg-primary">${leave.leaveReason}</a></li>
-                                </ul>
-                            </div>
+                <div class="col-12 mt-4">
+                    <div class="features-absolute">
+                        <div class="d-md-flex justify-content-between align-items-center bg-white shadow rounded p-4">
+                            <form class="card-body text-start">
+                                <div class="registration-form text-dark text-start">
+                                    <div style="display: flex;justify-content: center; align-items: center">
+                                        <div class="col-lg-3 col-md-6 col-12">
+                                            <a type="submit" href="addOfferForm.jsp"
+                                               style="height: 60px; padding-top: 17px;"
+                                               class="btn btn-primary searchbtn w-100">
+                                                Add Leave
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div><!--end row-->
+                            </form><!--end form-->
                         </div>
                     </div>
-                    <!--end col-->
-                </c:forEach>
-            </div><!--end row-->
+                </div>
+                <!--end col-->
 
-            <div class="row">
-                <div class="col-12 mt-4 pt-2">
-                    <ul class="pagination justify-content-center mb-0">
-                        <li class="page-item">
-                            <a class="page-link" href="#" aria-label="Previous">
-                                <span aria-hidden="true"><i class="mdi mdi-chevron-left fs-6"></i></span>
-                            </a>
-                        </li>
-                        <li class="page-item"><a class="page-link" href="#">1</a></li>
-                        <li class="page-item active"><a class="page-link" href="#">2</a></li>
-                        <li class="page-item"><a class="page-link" href="#">3</a></li>
-                        <li class="page-item">
-                            <a class="page-link" href="#" aria-label="Next">
-                                <span aria-hidden="true"><i class="mdi mdi-chevron-right fs-6"></i></span>
-                            </a>
-                        </li>
-                    </ul>
-                </div><!--end col-->
+            </div><!--end row-->
+            <div class="row g-4">
+                <c:if test="${user != null && user.role == 'RECRUITER'}">
+
+                    <c:forEach var="leave" items="${leaves}">
+                        <div class="col-lg-4 col-md-6 col-12">
+                            <div class="job-post job-type-three rounded shadow bg-white p-4">
+                                <div class="d-flex justify-content-between">
+                                    <div>
+
+                                        <a href="employer-profile.html"
+                                           class="h4 company text-dark d-block mt-2">${leave.employee.name}</a>
+                                    </div>
+                                    <form action="leave" method="post" id="statusForm">
+                                        <input type="hidden" name="action" value="updateLeaveStatus">
+                                        <input type="hidden" name="leaveId" value="${leave.id}">
+                                        <select name="status" class="custom-select" onchange="this.form.submit()">
+                                            <c:forEach var="status" items="${status}">
+                                                <option value="${status}">${status}</option>
+                                            </c:forEach>
+                                        </select><br><br>
+                                    </form>
+                                </div>
+
+                                <div>
+                                    <p class="text-muted mt-2">${leave.periode}</p>
+
+                                    <ul class="list-unstyled mb-0">
+                                        <li class="d-inline-block me-1"><a href="#"
+                                                                           class="badge bg-primary">${leave.leaveDate}</a>
+                                        </li>
+                                        <li class="d-inline-block me-1"><a href="#"
+                                                                           class="badge bg-primary">${leave.leaveReason}</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <!--end col-->
+                    </c:forEach>
+                </c:if>
             </div><!--end row-->
         </div><!--end container-->
     </section>

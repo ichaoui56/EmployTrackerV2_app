@@ -75,5 +75,9 @@ public class User {
     public void setRole(Role role) {
         this.role = role;
     }
+
+    public String getFirstLetter() {
+        return (name != null && !name.isEmpty()) ? name.substring(0, 1).toUpperCase() : "";
+    }
 }
 

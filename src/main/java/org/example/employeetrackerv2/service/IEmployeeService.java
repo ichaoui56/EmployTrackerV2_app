@@ -13,4 +13,6 @@ public interface IEmployeeService {
     void delete(int id);
     void update(Employee employee);
     void addEmployeeHistory(EmployeeHistory history);
+
+    double calculateFamilyAllowance(int numberOfChildren, double salary);
 }

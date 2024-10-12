@@ -73,14 +73,14 @@ public class OfferServlet extends HttpServlet {
                 }
                 break;
             default:
-                response.sendRedirect("offer?action=list");
+                response.sendRedirect("offer?action=listOffers");
                 break;
         }
     }
 
     protected void showOfferForm(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setAttribute("jobTypes", JobType.values());
-        request.getRequestDispatcher("addOfferForm.jsp").forward(request,response);
+        request.getRequestDispatcher("WEB-INF/views/forms/addOfferForm.jsp").forward(request,response);
     }
 
     protected void offerApplyForm(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -89,9 +89,9 @@ public class OfferServlet extends HttpServlet {
 
         if (offer != null) {
             request.setAttribute("offer", offer);
-            request.getRequestDispatcher("applyForm.jsp").forward(request, response);
+            request.getRequestDispatcher("WEB-INF/views/forms/applyForm.jsp").forward(request, response);
         } else {
-            response.sendRedirect("error.jsp");
+            response.sendRedirect("WEB-INF/views/errors/error.jsp");
         }
     }
 
@@ -99,7 +99,7 @@ public class OfferServlet extends HttpServlet {
         offerService.updateOfferStatus();
         List<Offer> offers = offerService.getAllOffers();
         request.setAttribute("offers", offers);
-        request.getRequestDispatcher("offerList.jsp").forward(request, response);
+        request.getRequestDispatcher("WEB-INF/views/lists/offerList.jsp").forward(request, response);
     }
 
     protected void addOffer(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, ParseException {
@@ -122,7 +122,7 @@ public class OfferServlet extends HttpServlet {
             if (dateFinishedStr != null && !dateFinishedStr.isEmpty()) {
                 dateFinished = new SimpleDateFormat("yyyy-MM-dd").parse(dateFinishedStr);
             } else {
-                response.sendRedirect("error.jsp");
+                response.sendRedirect("WEB-INF/views/errors/error.jsp");
                 return;
             }
 
@@ -132,7 +132,7 @@ public class OfferServlet extends HttpServlet {
 
             response.sendRedirect("offer?action=list");
         } else {
-            response.sendRedirect("error.jsp");
+            response.sendRedirect("WEB-INF/views/errors/error.jsp");
         }
     }
 

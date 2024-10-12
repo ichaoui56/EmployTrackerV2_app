@@ -73,7 +73,7 @@ public class ApplicationServlet extends HttpServlet {
                 updateApplicationStatus(request, response);
                 break;
             default:
-                response.sendRedirect("offer?action=list");
+                response.sendRedirect("application?action=displayAllApplications");
                 break;
         }
     }
@@ -84,7 +84,7 @@ public class ApplicationServlet extends HttpServlet {
 
         if (offer != null) {
             request.setAttribute("offer", offer);
-            request.getRequestDispatcher("applyForm.jsp").forward(request, response);
+            request.getRequestDispatcher("WEB-INF/views/forms/applyForm.jsp").forward(request, response);
         } else {
             response.sendRedirect("error.jsp");
         }
@@ -94,7 +94,7 @@ public class ApplicationServlet extends HttpServlet {
         List<Application> applications = applicationService.getAllApplications();
         request.setAttribute("applications", applications);
         request.setAttribute("statuses", Status.values());
-        request.getRequestDispatcher("displayApplications.jsp").forward(request, response);
+        request.getRequestDispatcher("WEB-INF/views/lists/displayApplications.jsp").forward(request, response);
     }
 
     protected void applyOffer(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -116,7 +116,7 @@ public class ApplicationServlet extends HttpServlet {
 
             response.sendRedirect("offer?action=listOffers");
         } else {
-            response.sendRedirect("error.jsp");
+            response.sendRedirect("views/errors/error.jsp");
         }
     }
 
@@ -134,7 +134,7 @@ public class ApplicationServlet extends HttpServlet {
         request.setAttribute("applications", applications);
         request.setAttribute("statuses", Status.values());
 
-        request.getRequestDispatcher("displayApplications.jsp").forward(request, response);
+        request.getRequestDispatcher("WEB-INF/views/lists/displayApplications.jsp").forward(request, response);
     }
 
     protected void updateApplicationStatus(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

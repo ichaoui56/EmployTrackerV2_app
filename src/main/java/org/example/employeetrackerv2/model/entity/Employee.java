@@ -32,8 +32,8 @@ public class Employee extends User {
     @Column(name = "poste", nullable = false, length = 100)
     private String poste;
 
-    @Column(name = "leave_balance", nullable = false)
-    private int leaveBalance;
+    @Column(name = "allocation_familial", nullable = false)
+    private double allocationFamilial;
 
     @OneToMany(mappedBy = "employee", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<EmployeeHistory> employeeHistoryList;
@@ -41,9 +41,10 @@ public class Employee extends User {
     @OneToMany(mappedBy = "employee")
     private List<Leave> leaveList;
 
-    public Employee() {}
+    public Employee() {
+    }
 
-    public Employee(String name, String email, String password, Role role, Date birthDate, String socialNumber, Date startDate, long salary, int childNumber, String department, String poste, int leaveBalance) {
+    public Employee(String name, String email, String password, Role role, Date birthDate, String socialNumber, Date startDate, long salary, int childNumber, String department, String poste,double allocationFamiliale) {
         super(name, email, password, role);
         this.birthDate = birthDate;
         this.socialNumber = socialNumber;
@@ -52,7 +53,7 @@ public class Employee extends User {
         this.childNumber = childNumber;
         this.department = department;
         this.poste = poste;
-        this.leaveBalance = leaveBalance;
+        this.allocationFamilial = allocationFamiliale;
     }
 
     public Date getBirthDate() {
@@ -111,14 +112,6 @@ public class Employee extends User {
         this.poste = poste;
     }
 
-    public int getLeaveBalance() {
-        return leaveBalance;
-    }
-
-    public void setLeaveBalance(int leaveBalance) {
-        this.leaveBalance = leaveBalance;
-    }
-
     public List<EmployeeHistory> getEmployeeHistoryList() {
         return employeeHistoryList;
     }
@@ -133,5 +126,13 @@ public class Employee extends User {
 
     public void setLeaveList(List<Leave> leaveList) {
         this.leaveList = leaveList;
+    }
+
+    public double getAllocationFamilial() {
+        return allocationFamilial;
+    }
+
+    public void setAllocationFamilial(double allocationFamilial) {
+        this.allocationFamilial = allocationFamilial;
     }
 }
