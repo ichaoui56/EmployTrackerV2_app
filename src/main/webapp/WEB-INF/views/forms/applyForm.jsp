@@ -95,7 +95,7 @@
                                 <i data-feather="dollar-sign" class="fea icon-ex-md me-3"></i>
                                 <div class="flex-1">
                                     <h6 class="widget-title mb-0">Salary:</h6>
-                                    <small class="text-primary mb-0">+${offer.qualifications}$</small>
+                                    <small class="text-primary mb-0">+${offer.salary}$</small>
                                 </div>
                             </div>
 

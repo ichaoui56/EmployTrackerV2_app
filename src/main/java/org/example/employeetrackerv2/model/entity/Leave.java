@@ -18,11 +18,14 @@ public class Leave {
     private String leaveReason;
 
     @Column(name = "periode", nullable = false, length = 255)
-    private String periode;
+    private int periode;
 
     @Column(name = "leave_date", nullable = false)
     @Temporal(TemporalType.DATE)
     private Date leaveDate;
+
+    @Column(name = "document_path", length = 500)
+    private String documentPath;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "status", nullable = false)
@@ -34,12 +37,13 @@ public class Leave {
 
     public Leave() {}
 
-    public Leave(String periode, Date leaveDate, String leaveReason, Employee employee) {
+    public Leave(int periode, Date leaveDate, String leaveReason, String documentPath, Employee employee) {
         this.leaveReason = leaveReason;
         this.leaveDate = leaveDate;
         this.status = Status.received;
         this.periode = periode;
         this.employee = employee;
+        this.documentPath = documentPath;
     }
 
     public int getId() {
@@ -66,12 +70,20 @@ public class Leave {
         this.leaveDate = leaveDate;
     }
 
-    public String getPeriode() {
+    public int getPeriode() {
         return periode;
     }
 
-    public void setPeriode(String periode) {
+    public void setPeriode(int periode) {
         this.periode = periode;
+    }
+
+    public String getDocumentPath() {
+        return documentPath;
+    }
+
+    public void setDocumentPath(String documentPath) {
+        this.documentPath = documentPath;
     }
 
     public Status getStatus() {

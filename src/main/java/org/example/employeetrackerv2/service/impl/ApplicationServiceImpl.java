@@ -19,6 +19,10 @@ public class ApplicationServiceImpl implements IApplicationService {
         this.notificationService = new NotificationService();
     }
 
+    public void setNotificationService(NotificationService notificationService) {
+        this.notificationService = notificationService;
+    }
+
     @Override
     public void applyForOffer(Application application){
         applicationDao.addApplicaion(application);
@@ -39,9 +43,9 @@ public class ApplicationServiceImpl implements IApplicationService {
         Application application = applicationDao.updateApplicationStatus(leaveId, newStatus);
         if (application != null) {
             String to = application.getEmail();
-            String subject = "Leave Status Update";
+            String subject = "Application Status Update";
             String message = "Dear " + application.getName() + ",\n\n" +
-                    "Your leave application has been updated to: " + newStatus + ".\n\n" +
+                    "Your application has been updated to: " + newStatus + ".\n\n" +
                     "Best regards,\nHR Team";
             notificationService.sendEmail(to, subject, message);
         }

@@ -10,7 +10,8 @@
             <div class="row mt-5 justify-content-center">
                 <div class="col-12">
                     <div class="title-heading text-center">
-                        <h5 class="heading fw-semibold mb-0 sub-heading text-white title-dark">Create a Job Post</h5>
+                        <!-- Updated Heading -->
+                        <h5 class="heading fw-semibold mb-0 sub-heading text-white title-dark">Apply for Leave</h5>
                     </div>
                 </div><!--end col-->
             </div><!--end row-->
@@ -18,9 +19,9 @@
             <div class="position-middle-bottom">
                 <nav aria-label="breadcrumb" class="d-block">
                     <ul class="breadcrumb breadcrumb-muted mb-0 p-0">
-                        <li class="breadcrumb-item"><a href="index.html">Jobnova</a></li>
-                        <li class="breadcrumb-item"><a href="job-grid-one.html">Job</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">Job Post</li>
+                        <li class="breadcrumb-item"><a href="index.html">EmployeeTracker</a></li>
+                        <li class="breadcrumb-item"><a href="leave?action=listLeaves">Leaves</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Apply for Leave</li>
                     </ul>
                 </nav>
             </div>
@@ -36,13 +37,14 @@
     </div>
     <!-- Hero End -->
 
-    <!-- Job apply form Start -->
+    <!-- Leave apply form Start -->
     <section class="section bg-light">
         <div class="container">
             <div class="row justify-content-center">
                 <div class="col-xl-7 col-lg-8">
                     <div class="card border-0">
-                        <form class="rounded shadow p-4" action="leave" method="post">
+                        <!-- Updated form tag with enctype -->
+                        <form class="rounded shadow p-4" action="leave" method="post" enctype="multipart/form-data">
                             <input type="hidden" name="action" value="addLeave">
                             <div class="row">
                                 <h5 class="mb-3">Leave Details:</h5>
@@ -50,35 +52,44 @@
                                     <div class="mb-3">
                                         <label class="form-label fw-semibold">Leave Reason :</label>
                                         <input name="leaveReason" id="subject2" class="form-control"
-                                               placeholder="Leave Reason :">
+                                               placeholder="Leave Reason :" required>
                                     </div>
-                                    <!-- Date Finished Input -->
+                                    <!-- Date and Period Inputs -->
                                     <div class="row">
                                         <div class="col-md-6">
                                             <div class="mb-3">
                                                 <label class="form-label fw-semibold">Leave Date :</label>
-                                                <input name="leaveDate" id="dateFinished" type="date" class="form-control">
+                                                <input name="leaveDate" id="dateFinished" type="date" class="form-control" required>
                                             </div>
                                         </div><!--end col-->
                                         <div class="col-md-6">
                                             <div class="mb-3">
-                                                <label class="form-label fw-semibold">Periode:</label>
-                                                <input name="periode" id="Experience" type="text" class="form-control"
-                                                       placeholder="Periode :">
+                                                <label class="form-label fw-semibold">Period:</label>
+                                                <input name="periode" id="Experience" type="number" class="form-control"
+                                                       placeholder="Period :" required>
                                             </div>
                                         </div><!--end col-->
                                     </div>
+                                    <!-- Document Upload Field -->
+                                    <div class="mb-3">
+                                        <label class="form-label fw-semibold">Upload Document:</label>
+                                        <input name="document" type="file" class="form-control"
+                                               accept=".pdf,.doc,.docx,image/*" required>
+                                    </div>
                                 </div><!--end col-->
-
                             </div>
-
 
                             <div class="row">
                                 <div class="col-12">
-                                    <input type="submit" id="submit2" name="send" class="submitBnt btn btn-primary"
-                                           value="Post Now">
+                                    <input type="submit" id="submit2" name="send" class="submitBtn btn btn-primary"
+                                           value="Submit Leave Request">
                                 </div><!--end col-->
                             </div><!--end row-->
+                            <c:if test="${not empty errorMessage}">
+                                <div style="margin-top: 10px" class=" alert alert-danger">
+                                        ${errorMessage}
+                                </div>
+                            </c:if>
                         </form><!--end form-->
                     </div><!--end custom-form-->
                 </div>
@@ -86,6 +97,5 @@
         </div><!--end container-->
     </section>
     <!--end section-->
-    <!-- Job apply form End -->
+    <!-- Leave apply form End -->
 </layout:homeLayout>
-

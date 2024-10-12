@@ -16,6 +16,9 @@ public class Employee extends User {
     @Column(name = "social_number", unique = true, nullable = false, length = 50)
     private String socialNumber;
 
+    @Column(name = "leave_balance", nullable = false)
+    private int leaveBalance = 20;
+
     @Column(name = "start_date", nullable = false)
     @Temporal(TemporalType.DATE)
     private Date startDate;
@@ -118,6 +121,14 @@ public class Employee extends User {
 
     public void setEmployeeHistoryList(List<EmployeeHistory> employeeHistoryList) {
         this.employeeHistoryList = employeeHistoryList;
+    }
+
+    public int getLeaveBalance() {
+        return leaveBalance;
+    }
+
+    public void setLeaveBalance(int leaveBalance) {
+        this.leaveBalance = leaveBalance;
     }
 
     public List<Leave> getLeaveList() {

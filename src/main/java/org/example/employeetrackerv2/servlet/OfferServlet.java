@@ -130,7 +130,7 @@ public class OfferServlet extends HttpServlet {
 
             offerService.addOffer(offer);
 
-            response.sendRedirect("offer?action=list");
+            response.sendRedirect("offer?action=listOffers");
         } else {
             response.sendRedirect("WEB-INF/views/errors/error.jsp");
         }

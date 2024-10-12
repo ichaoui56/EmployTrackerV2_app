@@ -4,6 +4,7 @@ import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityTransaction;
 import org.example.employeetrackerv2.config.JpaConfig;
 import org.example.employeetrackerv2.dao.ILeaveDao;
+import org.example.employeetrackerv2.model.entity.Employee;
 import org.example.employeetrackerv2.model.entity.Leave;
 import org.example.employeetrackerv2.model.entity.LeaveHistory;
 import org.example.employeetrackerv2.model.enums.Status;
@@ -32,6 +33,22 @@ public class LeaveDaoImpl implements ILeaveDao {
         } finally {
             entityManager.close();
         }
+    }
+
+    @Override
+    public Leave findLeaveById(int id) {
+        EntityManager entityManager = JpaConfig.getEntityManagerFactory().createEntityManager();
+        Leave leave = null;
+
+        try {
+            leave = entityManager.find(Leave.class, id);
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            entityManager.close();
+        }
+
+        return leave;
     }
 
     @Override

@@ -39,7 +39,7 @@
                                     <div class="registration-form text-dark text-start">
                                         <div style="display: flex;justify-content: center; align-items: center">
                                             <div class="col-lg-3 col-md-6 col-12">
-                                                <a type="submit" href="addOfferForm.jsp"
+                                                <a type="submit" href="offer?action=addOfferForm"
                                                    style="height: 60px; padding-top: 17px;"
                                                    class="btn btn-primary searchbtn w-100">
                                                     Add Offer

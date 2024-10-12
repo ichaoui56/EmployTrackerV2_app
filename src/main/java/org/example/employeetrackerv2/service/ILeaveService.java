@@ -10,5 +10,8 @@ public interface ILeaveService {
     void addLeave(Leave leave);
     List<Leave> getAllLeaves();
     void updateLeaveStatus(int leaveId, Status newStatus);
+
+    Leave findLeaveById(int id);
+
     void addLeaveHistory(LeaveHistory leave);
 }

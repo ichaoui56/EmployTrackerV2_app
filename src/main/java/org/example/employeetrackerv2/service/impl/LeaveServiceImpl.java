@@ -14,13 +14,17 @@ public class LeaveServiceImpl implements ILeaveService {
     private NotificationService notificationService;
 
 
-    public LeaveServiceImpl(ILeaveDao leaveDao){
+    public LeaveServiceImpl(ILeaveDao leaveDao) {
         this.leaveDao = leaveDao;
         this.notificationService = new NotificationService();
     }
 
+    public void setNotificationService(NotificationService notificationService) {
+        this.notificationService = notificationService;
+    }
+
     @Override
-    public void addLeave(Leave leave){
+    public void addLeave(Leave leave) {
         leaveDao.insert(leave);
 
         String to = "ilyaschaoui73@gmail.com";
@@ -31,13 +35,14 @@ public class LeaveServiceImpl implements ILeaveService {
                 "Leave Reason: " + leave.getLeaveReason() + "\n" +
                 "Status: " + leave.getStatus() + "\n" +
                 "Leave Date: " + leave.getLeaveDate() + "\n" +
-                "Period: " + leave.getPeriode();
+                "Period: " + leave.getPeriode() + "\n" +
+                "Document: " + leave.getDocumentPath();
 
         notificationService.sendEmail(to, subject, message);
     }
 
     @Override
-    public List<Leave> getAllLeaves(){
+    public List<Leave> getAllLeaves() {
         return leaveDao.getAllLeaves();
     }
 
@@ -55,6 +60,10 @@ public class LeaveServiceImpl implements ILeaveService {
         }
     }
 
+    @Override
+    public Leave findLeaveById(int id) {
+        return leaveDao.findLeaveById(id);
+    }
     @Override
     public void addLeaveHistory(LeaveHistory leave) {
         leaveDao.insertLeaveHistory(leave);
