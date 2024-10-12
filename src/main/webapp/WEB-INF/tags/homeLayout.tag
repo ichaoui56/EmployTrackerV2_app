@@ -36,7 +36,7 @@
     <div class="container">
         <a class="logo" href="index.html">
                     <span class="logo-light-mode">
-                        <img src="assets/images/logo-black.png"  width="200" class="l-dark" alt="">
+                        <img src="assets/images/logo-black.png" width="200" class="l-dark" alt="">
                         <img src="assets/images/logo-white1.png" width="200" class="l-light" alt="">
                     </span>
             <img src="assets/images/logo-light.png" class="logo-dark-mode" alt="">
@@ -95,7 +95,7 @@
                                         <span>S</span><span>E</span><span>C</span><span>O</span><span>N</span>
                                         <span>N</span><span>E</span><span>C</span><span>T</span><span>E</span><span>R</span>
                                     </span>
-                                                        <span class="span-mother2">
+                                    <span class="span-mother2">
                                         <span>S</span><span>E</span><span>C</span><span>O</span><span>N</span>
                                         <span>N</span><span>E</span><span>C</span><span>T</span><span>E</span><span>R</span>
                                     </span>
@@ -110,10 +110,11 @@
                         <a href="candidate-profile-setting.html" class="dropdown-item fw-medium fs-6"><i
                                 data-feather="settings" class="fea icon-sm me-2 align-middle"></i>Settings</a>
                         <div class="dropdown-divider border-top"></div>
-                        <a href="lock-screen.html" class="dropdown-item fw-medium fs-6"><i data-feather="lock"
-                                                                                           class="fea icon-sm me-2 align-middle"></i>Lockscreen</a>
+                        <c:if test="${user != null && user.role == 'ADMIN'}">
+                            <a href="dashboard.jsp" class="dropdown-item fw-medium fs-6"><i data-feather="lock" class="fea icon-sm me-2 align-middle"></i>Dashboard</a>
+                        </c:if>
                         <a href="auth?action=logout" class="dropdown-item fw-medium fs-6"><i data-feather="log-out"
-                                                                                     class="fea icon-sm me-2 align-middle"></i>Logout</a>
+                                                                                             class="fea icon-sm me-2 align-middle"></i>Logout</a>
                     </div>
                 </div>
             </li>
@@ -125,10 +126,12 @@
                 <li><a href="/EmployeeTrackerV2_war_exploded" class="sub-menu-item">Home</a></li>
 
                 <li><a href="offer?action=listOffers" class="sub-menu-item">Jobs</a></li>
-                <li><a href="application?action=displayAllApplications" class="sub-menu-item">Applications</a></li>
-                <li><a href="leave?action=listLeaves" class="sub-menu-item">Leaves</a></li>
-
-
+                <c:if test="${user != null && user.role == 'ADMIN' || user.role == 'RECRUITER'}">
+                    <li><a href="application?action=displayAllApplications" class="sub-menu-item">Applications</a></li>
+                </c:if>
+                <c:if test="${user != null && user.role == 'ADMIN' || user.role == 'EMPLOYEE'}">
+                    <li><a href="leave?action=listLeaves" class="sub-menu-item">Leaves</a></li>
+                </c:if>
                 <li><a href="EmployeeTrackerV2_war_exploded/" class="sub-menu-item">Contact Us</a></li>
             </ul><!--end navigation menu-->
         </div><!--end navigation-->

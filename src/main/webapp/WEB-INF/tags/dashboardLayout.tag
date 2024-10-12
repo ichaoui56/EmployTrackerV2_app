@@ -89,7 +89,8 @@
             style="display:none;visibility:hidden">
     </iframe>
 </noscript>
-<div class="absolute w-full dark:hidden min-h-75" style="background: url('https://raw.githubusercontent.com/creativetimofficial/public-assets/master/argon-dashboard-pro/assets/img/profile-layout-header.jpg')"></div>
+<div class="absolute w-full dark:hidden min-h-75"
+     style="background: url('https://raw.githubusercontent.com/creativetimofficial/public-assets/master/argon-dashboard-pro/assets/img/profile-layout-header.jpg')"></div>
 
 <aside mini="false"
        class="fixed inset-y-0 left-0 flex-wrap items-center justify-between block w-full p-0 my-4 overflow-y-auto transition-all duration-200 ease-in-out -translate-x-full bg-white border-0 shadow-none xl:ml-6 dark:bg-slate-850 z-990 max-w-64 rounded-2xl xl:translate-x-0"
@@ -203,7 +204,19 @@
                     </ul>
                 </div>
             </li>
-
+            <a collapse_trigger="primary" href="leave?action=listDashLeaves"
+               class="ease-in-out text-sm leading-default py-2.7 active after:ease-in-out
+                   <%= "listDashLeaves".equals(request.getParameter("action")) ? "bg-blue-500/30 font-semibold" : "" %>
+                   after:font-awesome-5-free my-0 mx-2 flex items-center whitespace-nowrap px-4 font-medium text-slate-500 shadow-none transition-colors after:ml-auto after:inline-block after:font-bold after:text-slate-800/50 after:antialiased after:transition-all after:duration-200 after:content-['\f107'] dark:text-white dark:opacity-80 dark:after:text-white/50 dark:after:text-white"
+               aria-controls="applicationsExamples" role="button" aria-expanded="false">
+                <div
+                        class="stroke-none flex h-8 w-8 items-center justify-center rounded-lg bg-center fill-current p-2.5 text-center text-black">
+                    <i
+                            class="text-sm leading-normal ni ni-align-left-2 text-slate-700/80"
+                    ></i>
+                </div>
+                <span class="ml-1 duration-300 opacity-100 pointer-events-none ease">Display Leaves</span>
+            </a>
             <li class="mt-0.5 w-full">
                 <a collapse_trigger="primary" href="index.jsp"
                    class="ease-in-out text-sm leading-default py-2.7 active after:ease-in-out after:font-awesome-5-free my-0 mx-2 flex items-center whitespace-nowrap px-4 font-medium text-slate-500 shadow-none transition-colors after:ml-auto after:inline-block after:font-bold after:text-slate-800/50 after:antialiased after:transition-all after:duration-200 after:content-['\f107'] dark:text-white dark:opacity-80 dark:after:text-white/50 dark:after:text-white"
@@ -570,6 +583,7 @@
         data-cf-beacon='{"rayId":"8d164470fe14228e","version":"2024.10.1","serverTiming":{"name":{"cfExtPri":true,"cfL4":true,"cfSpeedBrain":true,"cfCacheStatus":true}},"token":"1b7cbb72744b40c580f8633c6b62637e","b":1}'
         crossorigin="anonymous"></script>
 </body>
+
 <script src="assets-dash/js/plugins/chartjs.min.js"></script>
 <script src="assets-dash/js/plugins/perfect-scrollbar.min.js"></script>
 <script src="assets-dash/js/plugins/datatables.min.js"></script>

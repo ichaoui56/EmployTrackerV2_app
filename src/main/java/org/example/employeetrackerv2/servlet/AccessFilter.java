@@ -32,7 +32,7 @@ public class AccessFilter implements Filter {
         boolean isLoggedIn = (session != null && session.getAttribute("user") != null);
         boolean isAdmin = isLoggedIn && ((User) session.getAttribute("user")).getRole() == Role.ADMIN;
 
-        if (requestURI.endsWith(".jsp") || requestURI.endsWith(".css") || requestURI.endsWith(".jpg") ||
+        if (requestURI.endsWith(".css") || requestURI.endsWith(".jpg") ||
                 requestURI.endsWith(".png") || requestURI.endsWith(".js")) {
             chain.doFilter(request, response);
             return;
@@ -44,7 +44,7 @@ public class AccessFilter implements Filter {
                     (requestURI.equals(contextPath + "/application") &&
                             "applyOfferForm".equals(httpRequest.getParameter("action"))) ||
                     (requestURI.equals(contextPath + "/application") &&
-                            "applyOffer".equals(httpRequest.getParameter("action")))) { // Added condition here
+                            "applyOffer".equals(httpRequest.getParameter("action")))) {
                 chain.doFilter(request, response);
                 return;
             } else {

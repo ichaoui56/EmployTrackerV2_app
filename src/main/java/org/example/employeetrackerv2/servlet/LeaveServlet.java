@@ -45,8 +45,11 @@ public class LeaveServlet extends HttpServlet {
             case "listLeaves":
                 listLeaves(request, response);
                 break;
+            case "listDashLeaves":
+                listDashLeaves(request, response);
+                break;
             default:
-                response.sendRedirect("offer?action=list");
+                response.sendRedirect("leave?action=listLeaves");
                 break;
         }
     }
@@ -63,7 +66,7 @@ public class LeaveServlet extends HttpServlet {
                 handleUpdateLeaveStatus(request, response);
                 break;
             default:
-                response.sendRedirect("offer?action=listLeaves");
+                response.sendRedirect("leave?action=listLeaves");
                 break;
         }
     }
@@ -77,6 +80,13 @@ public class LeaveServlet extends HttpServlet {
         request.setAttribute("leaves", leaves);
         request.setAttribute("status", Status.values());
         request.getRequestDispatcher("WEB-INF/views/lists/listLeaves.jsp").forward(request, response);
+    }
+
+    private void listDashLeaves(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        List<Leave> leaves = leaveService.getAllLeaves();
+        request.setAttribute("leaves", leaves);
+        request.setAttribute("status", Status.values());
+        request.getRequestDispatcher("WEB-INF/views/lists/listDashLeaves.jsp").forward(request, response);
     }
 
     private void handleAddLeave(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -105,7 +115,7 @@ public class LeaveServlet extends HttpServlet {
             String modificationDetails = "Added new leave by " + employee.getName();
             LeaveHistory history = new LeaveHistory(leave, modificationDetails);
             leaveService.addLeaveHistory(history);
-            response.sendRedirect("offer?action=list");
+            response.sendRedirect("offer?action=listLeaves");
         } else {
             response.sendRedirect("WEB-INF/views/errors/error.jsp");
         }
@@ -125,6 +135,6 @@ public class LeaveServlet extends HttpServlet {
             }
         }
 
-        response.sendRedirect("leave?action=listLeaves");
+        response.sendRedirect("leave?action=listDashLeaves");
     }
 }
